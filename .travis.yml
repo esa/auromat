@@ -32,9 +32,12 @@ install:
   - python setup.py sdist
   # manually install extra dependencies, this is a
   # work-around until https://github.com/pypa/pip/issues/1236 is fixed
+  # and for the case of spacepy until it is on pypi
   - pip install netCDF4
-  - pip install git+http://git.code.sf.net/p/spacepy/code@412003
-  - pip install dist/*.tar.gz
+  
+  # spacepy
+  - git clone --depth 1 http://git.code.sf.net/p/spacepy/code spacepy
+  - cd spacepy && python setup.py install && cd ..
   
 script:
   - mkdir tmp_for_test

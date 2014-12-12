@@ -1,6 +1,10 @@
 AUROra MApping Toolkit
 ======================
 
+.. image:: https://travis-ci.org/esa/auromat.svg?branch=master
+    :target: https://travis-ci.org/esa/auromat
+    :alt: Linux Build Status
+
 Installation under Linux
 ------------------------
 
@@ -15,7 +19,8 @@ install NASA's CDF library, see http://cdf.gsfc.nasa.gov for details.
 Also, for using the CDF library in Python we need the spacepy library.
 As this is not yet released on PyPI, you have to install it manually using:
 
-    pip install --user git+http://git.code.sf.net/p/spacepy/code@412003
+    git clone --depth 1 http://git.code.sf.net/p/spacepy/code spacepy
+    cd spacepy && python setup.py install --user && cd ..
 
 If you want to export in netCDF format:
 
@@ -43,7 +48,8 @@ install NASA's CDF library, see http://cdf.gsfc.nasa.gov for details.
 Also, for using the CDF library in Python we need the spacepy library.
 As this is not yet released on PyPI, you have to install it manually using:
 
-    pip install --user git+http://git.code.sf.net/p/spacepy/code@412003
+    git clone --depth 1 http://git.code.sf.net/p/spacepy/code spacepy
+    cd spacepy && python setup.py install --user && cd ..
 
 If you want to export in netCDF format:
 
