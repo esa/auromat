@@ -45,4 +45,5 @@ class Test(unittest.TestCase):
         assert_array_equal([bb.latSouth,bb.latNorth,bb.lonWest,bb.lonEast],
                            [bb1.latSouth,bb2.latNorth,bb1.lonWest,bb2.lonEast])
         assert_array_almost_equal(bb.center, [21.136113246, -150])
-        assert_array_almost_equal(bb.size, [6988.815078968, 16870.7547136])
+        # size cannot be checked as the bounding box spans more than 180deg longitude
+        # which is not supported currently
