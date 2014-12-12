@@ -6,6 +6,7 @@ from six.moves import zip, map
 from six import string_types
 import warnings
 import os
+import sys
 import gc
 import fnmatch
 import time
@@ -13,11 +14,14 @@ import json
 from datetime import datetime
 from collections import OrderedDict
 
-try:
-    from numap.NuMap import NuMap
-except ImportError as e:
-    print('parallel processing not available (NuMap missing)')
-    print(repr(e))  
+if sys.version_info.major == 2:
+    try:
+        from numap.NuMap import NuMap
+    except ImportError as e:
+        print('parallel processing not available (NuMap missing)')
+        print(repr(e))
+else:
+    print('parallel processing not available (NuMap not supported on Python 3 yet)')
 
 import numpy as np
 
