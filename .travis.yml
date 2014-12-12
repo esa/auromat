@@ -5,6 +5,8 @@ python:
   - "3.4"
 
 install:
+  # scikit-image 0.10.1 needs six at setup but doesn't install it
+  - pip install six
   - python setup.py sdist
   - pip install dist/*.tar.gz
   
