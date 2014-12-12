@@ -29,7 +29,9 @@ install:
   # we use conda to prevent compiling big packages
   - conda install --yes numpy scipy astropy scikit-image pillow matplotlib basemap pip
   - pip install -r dev-requirements.txt
-  - python setup.py sdist
+  - python setup.py sdist 
+  - pip install dist/*.tar.gz
+  
   # manually install extra dependencies, this is a
   # work-around until https://github.com/pypa/pip/issues/1236 is fixed
   # and for the case of spacepy until it is on pypi
