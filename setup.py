@@ -27,6 +27,7 @@ setup(
                       'papy',
                       'numpy>=1.6',
                       'scipy>=0.9',
+                      'numexpr',
                       'scikit-image',
                       'pillow', # used by scikit-image
                       'psutil',
@@ -36,6 +37,7 @@ setup(
                       'astroquery',
                       'pyephem>=3.7.5.2',
                       'matplotlib',
+                      'basemap',
                       'brewer2mpl',
                       'lensfunpy>=1.1.0',
                       'rawpy>=0.1',
