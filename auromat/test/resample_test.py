@@ -9,11 +9,11 @@ import astropy.units as u
 
 import unittest
 
-from auromat.resample import rotatePole, resample, resampleMLatMLT
+from auromat.resample import resample, resampleMLatMLT
 from auromat.mapping.mapping import GenericMapping, checkPlateCarree
 import os
 from auromat.mapping.spacecraft import getMapping
-from auromat.coordinates.transform import mltToSmLon
+from auromat.coordinates.transform import mltToSmLon, rotatePole
 import datetime
 from numpy.ma.testutils import assert_array_approx_equal
 
@@ -61,8 +61,8 @@ def testCoordsPole():
     lonsCenter = Angle((lonsCenter - 5) * u.deg).wrap_at(180 * u.deg).degree
     lats = lons.T
     latsCenter = lonsCenter.T
-    latsRot, lonsRot = rotatePole(np.deg2rad(lats.flat), np.deg2rad(lons.flat), angle=90, axis=[0,1,0])
-    latsCenterRot, lonsCenterRot = rotatePole(np.deg2rad(latsCenter.flat), np.deg2rad(lonsCenter.flat), angle=90, axis=[0,1,0])
+    latsRot, lonsRot = rotatePole(np.deg2rad(lats.flat), np.deg2rad(lons.flat), 0, angle=90, axis=[0,1,0])
+    latsCenterRot, lonsCenterRot = rotatePole(np.deg2rad(latsCenter.flat), np.deg2rad(lonsCenter.flat), 0, angle=90, axis=[0,1,0])
     return np.rad2deg(latsRot.reshape(lats.shape)), np.rad2deg(lonsRot.reshape(lons.shape)),\
            np.rad2deg(latsCenterRot.reshape(latsCenter.shape)), np.rad2deg(lonsCenterRot.reshape(lonsCenter.shape))
 
