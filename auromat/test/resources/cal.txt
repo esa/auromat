@@ -1,0 +1,23 @@
+# Each row describes a period of all-sky recordings with corresponding
+# imager orientation
+#
+#   - Glat and Glon are geographical latitude and longitude of the station
+#   - "Active" and "to" mark the period in years (yyyy + (mm-1)/12)
+#   - (Xc,Yc) is the zenith, (0,0) is in the upper left corner
+#                            X is vertical and Y horizontal
+#   - Distance from the zenith point at angle z (in rad) is d=kz
+#   - CCW-rotation of the all-sky image corresponds to positive rotation
+#
+#   - lat+ and lat- determine the offsets for maps and keograms (constant grid between station latitude + lat+ / lat- )
+#   - lon+ and lon- determine the offsets for maps and keograms (constant grid between station longitude + lon+ / lon- )
+#
+#   - the coefficients i1,i2 and i3 are reserved for intensity calibration
+#
+#
+# Sta Glat  Glon   Active to      Xc     Yc     k        rotation  lat+  lat-   lon- lon+    i1  i2  i3
+#
+# Winter 2011-2012
+#
+SOD   67.42 26.39  2011.5  2012.5 219.3  244.2  155.81   0.14373  3.3  -3.3  -16.3  16.3  0  1  1
+KEV   69.76 27.01  2011.5  2012.5 249.5  273.8  154.59   0.07049  2.7  -2.7   -7.9    7.9  0  1  1
+MUO   68.02 23.63  2011.5  2012.5 234.5  275.3  151.10   0.20408  3.3  -3.3  -16.3  16.3  0  1  1

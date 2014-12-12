@@ -1,0 +1,12 @@
+setup.py
+/docs
+auromat/_version
+auromat/debug
+auromat/test
+'auromat/mapping'
+'auromat/cli'
+'auromat/coordinates'
+'auromat/export'
+'auromat/util'
+'auromat/solving'
+'auromat/mapping'

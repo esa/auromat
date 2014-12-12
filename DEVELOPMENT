@@ -1,0 +1,15 @@
+Errors in unit tests using PyDev (Eclipse)
+--------------------------------
+
+The following error may occur:
+
+[...]
+  File "/home/.../.local/lib/python2.7/site-packages/spacepy/pycdf/__init__.py", line 80, in <module>
+    from . import const
+ImportError: cannot import name const
+
+The real error is hidden and is displayed when running code outside the unit test.
+The problem is that CDF_LIB isn't defined and then subsequently the import fails.
+
+Solution: Put the following line into ~/.profile:
+export CDF_LIB=/path/to/cdf/lib

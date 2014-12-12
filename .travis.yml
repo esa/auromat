@@ -1,0 +1,15 @@
+language: python
+
+python:
+  - "2.7"
+  - "3.4"
+
+install:
+  - python setup.py sdist
+  - pip install dist/*.tar.gz
+  
+script:
+  - mkdir tmp_for_test
+  - cd tmp_for_test
+  - nosetests ../auromat/test
+  - cd ..
