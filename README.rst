@@ -12,6 +12,8 @@ The following assumes Ubuntu, but should be similar for other distributions.
 
 Before installing auromat, some system libraries have to be installed.
 
+.. code:: sh
+
     sudo apt-get install libraw-dev liblensfun-dev
 
 If you want to use THEMIS data or export in CDF format you have to
@@ -19,14 +21,20 @@ install NASA's CDF library, see http://cdf.gsfc.nasa.gov for details.
 Also, for using the CDF library in Python we need the spacepy library.
 As this is not yet released on PyPI, you have to install it manually using:
 
+.. code:: sh
+
     git clone --depth 1 http://git.code.sf.net/p/spacepy/code spacepy
     cd spacepy && python setup.py install --user && cd ..
 
 If you want to export in netCDF format:
 
+.. code:: sh
+
     sudo apt-get install libnetcdf-dev libhdf5-serial-dev
  
 Now, install auromat with:
+
+.. code:: sh
 
     pip install --user auromat[cdf,netcdf]
 
@@ -37,9 +45,13 @@ Installation under Mac OS X
 
 First, install Homebrew if you don't have it yet:
 
+.. code:: sh
+
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 Then, install some native software with Homebrew:
+
+.. code:: sh
 
     brew install git python
 
@@ -48,14 +60,20 @@ install NASA's CDF library, see http://cdf.gsfc.nasa.gov for details.
 Also, for using the CDF library in Python we need the spacepy library.
 As this is not yet released on PyPI, you have to install it manually using:
 
+.. code:: sh
+
     git clone --depth 1 http://git.code.sf.net/p/spacepy/code spacepy
     cd spacepy && python setup.py install --user && cd ..
 
 If you want to export in netCDF format:
 
+.. code:: sh
+
     brew install netcdf hdf5
 
 Now, install auromat with:
+
+.. code:: sh
 
     pip install --user auromat[cdf,netcdf]
 
@@ -88,6 +106,8 @@ http://www.lfd.uci.edu/~gohlke/pythonlibs/#netcdf4
 
 Now, install auromat with:
 
+.. code:: sh
+
     pip install --user auromat[cdf,netcdf]
 
 Use auromat[cdf] or auromat[netcdf] to leave out CDF or netCDF support, respectively.
@@ -108,6 +128,8 @@ bin/ folder is in your PATH so that auromat can find it.
 If you want to automatically mask the starfield of an image using the auromat.solving.masking
 module, please install on Ubuntu:
 
+.. code:: sh
+
     sudo apt-get install libopencv-imgproc-dev python-opencv
     
 on Mac OS X, please follow 
@@ -118,9 +140,13 @@ on Windows, install from http://www.lfd.uci.edu/~gohlke/pythonlibs/#opencv
 If you want to correct lens distortion in an image with the lensfun database
 using EXIF data extracted from the image, please install on Ubuntu:
 
+.. code:: sh
+
     sudo apt-get install libimage-exiftool-perl
     
-on Mac OS X, 
+on Mac OS X:
+
+.. code:: sh
     
     brew install exiftool
     
