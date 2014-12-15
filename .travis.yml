@@ -2,10 +2,14 @@ language: objective-c
 
 env:
   matrix:
-    - VERSION=2.7.8
-    - VERSION=3.4.1
+    - VERSION=2
+    - VERSION=3
 
-install:  
+install:
+  - cd terryfy && git fetch && git checkout master && cd ..
+  - source terryfy/travis_tools.sh
+  - travis_retry get_python_environment homebrew $VERSION
+
   # CDF
   - wget http://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf35_0_2/linux/cdf35_0-dist-cdf.tar.gz
   - tar -zxvf cdf35_0-dist-cdf.tar.gz
@@ -16,7 +20,7 @@ install:
 
   # spacepy
   - git clone --depth 1 http://git.code.sf.net/p/spacepy/code spacepy
-  - cd spacepy && python setup.py install --user && cd ..
+  - cd spacepy && sudo python setup.py install && cd ..
   
   # some other native software/libraries
   - brew install exiftool ffmpeg
@@ -25,8 +29,9 @@ install:
   - brew install netcdf hdf5
   
   # and finally install auromat itself
-  - pip install --user auromat[cdf,netcdf]
+  - sudo pip install auromat[cdf,netcdf]
+  
 
 script:
-  - pip install --user nose
+  - sudo pip install nose
   - nosetests --verbosity=3 --nocapture -a '!slow' auromat.test
