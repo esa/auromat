@@ -47,15 +47,13 @@ setup(
                       'astropy>=0.4.1',
                       'astroquery',
                       'pyephem>=3.7.5.2',
-                      'matplotlib',
-                      'basemap',
-                      'brewer2mpl',
                       'lensfunpy>=1.1.0',
                       'rawpy>=0.1',
                       ],
     extras_require = {
         'netcdf': ['netCDF4'], # for netCDF export
         'cdf': ['spacepy'], # for CDF export and reading THEMIS CDF files
+        'plotting': ['matplotlib', 'brewer2mpl', 'basemap'],
     },
     package_data = {
         '': ['*.dbf', '*.shp', '*.shx'],

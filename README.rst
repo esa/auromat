@@ -36,9 +36,9 @@ Now, install auromat with:
 
 .. code:: sh
 
-    pip install --user auromat[cdf,netcdf]
+    pip install --user auromat[cdf,netcdf,plotting]
 
-Use auromat[cdf] or auromat[netcdf] to leave out CDF or netCDF support, respectively.
+Support for CDF, netCDF or plotting can be left out using auromat[cdf] etc.
 
 Installation under Mac OS X
 ---------------------------
@@ -69,15 +69,16 @@ If you want to export in netCDF format:
 
 .. code:: sh
 
+	brew tap homebrew/science
     brew install netcdf hdf5
 
 Now, install auromat with:
 
 .. code:: sh
 
-    pip install --user auromat[cdf,netcdf]
+    pip install --user auromat[cdf,netcdf,plotting]
 
-Use auromat[cdf] or auromat[netcdf] to leave out CDF or netCDF support, respectively.
+Support for CDF, netCDF or plotting can be left out using auromat[cdf] etc.
 
 Installation under Windows
 --------------------------
@@ -93,7 +94,10 @@ Some required Python packages (as of late 2014) don't offer Windows binary
 wheels on PyPI yet. Therefore, you have to install them manually:
 
 Please install numpy, scipy, numexpr, scikit-image, astropy, and pyephem from
-http://www.lfd.uci.edu/~gohlke/pythonlibs/
+http://www.lfd.uci.edu/~gohlke/pythonlibs/. 
+
+If you want to draw any kind of geographic maps, please install the basemap library from:
+http://www.lfd.uci.edu/~gohlke/pythonlibs/#basemap
 
 If you want to use THEMIS data or export in CDF format you have to
 install NASA's CDF library (32 bit version), see http://cdf.gsfc.nasa.gov for details.
@@ -108,9 +112,9 @@ Now, install auromat with:
 
 .. code:: sh
 
-    pip install --user auromat[cdf,netcdf]
+    pip install --user auromat[cdf,netcdf,plotting]
 
-Use auromat[cdf] or auromat[netcdf] to leave out CDF or netCDF support, respectively.
+Support for CDF, netCDF or plotting can be left out using auromat[cdf] etc.
 
 Advanced functionality
 ----------------------
