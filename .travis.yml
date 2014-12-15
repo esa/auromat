@@ -13,7 +13,7 @@ before_install:
   - conda update --yes conda
   
   # system libs
-  - sudo apt-get install libraw-dev liblensfun-dev ffmpeg libnetcdf-dev libhdf5-serial-dev
+  - sudo apt-get install libraw-dev liblensfun-dev ffmpeg libnetcdf-dev libhdf5-serial-dev libimage-exiftool-perl
   
   # CDF
   - wget http://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf35_0_2/linux/cdf35_0-dist-cdf.tar.gz
@@ -27,7 +27,7 @@ install:
   - conda create --yes -n test python=$TRAVIS_PYTHON_VERSION
   - source activate test
   # we use conda to prevent compiling big packages
-  - conda install --yes numpy scipy astropy numexpr scikit-image pillow matplotlib basemap pip
+  - conda install --yes numpy scipy astropy numexpr opencv scikit-image pillow matplotlib basemap pip
   - pip install -r dev-requirements.txt
   - python setup.py sdist 
   - pip install dist/*.tar.gz
