@@ -25,7 +25,7 @@ install:
   - brew install netcdf hdf5
   
   # and finally install auromat itself
-  - pip install auromat[cdf,netcdf]
+  - pip install --user auromat[cdf,netcdf]
 
 script:
   - nosetests --verbosity=3 --nocapture -a '!slow' auromat.test
