@@ -8,7 +8,7 @@ env:
 install:
   - cd terryfy && git fetch && git checkout master && cd ..
   - source terryfy/travis_tools.sh
-  - travis_retry get_python_environment homebrew $VERSION
+  - travis_retry get_python_environment homebrew $VERSION venv
 
   # CDF
   - wget http://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf35_0_2/linux/cdf35_0-dist-cdf.tar.gz
@@ -19,9 +19,9 @@ install:
   - cd ..
 
   # spacepy
-  - sudo pip install numpy
+  - pip install numpy python-dateutil
   - git clone --depth 1 http://git.code.sf.net/p/spacepy/code spacepy
-  - cd spacepy && sudo python setup.py install && cd ..
+  - cd spacepy && python setup.py install && cd ..
   
   # some other native software/libraries
   - brew install exiftool ffmpeg
@@ -30,9 +30,9 @@ install:
   - brew install netcdf hdf5
   
   # and finally install auromat itself
-  - sudo pip install auromat[cdf,netcdf]
+  - pip install auromat[cdf,netcdf]
   
 
 script:
-  - sudo pip install nose
+  - pip install nose
   - nosetests --verbosity=3 --nocapture -a '!slow' auromat.test
