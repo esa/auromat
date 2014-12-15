@@ -28,4 +28,5 @@ install:
   - pip install --user auromat[cdf,netcdf]
 
 script:
+  - pip install --user nose
   - nosetests --verbosity=3 --nocapture -a '!slow' auromat.test
