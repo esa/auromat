@@ -1,0 +1,25 @@
+language: objective-c
+
+env:
+  matrix:
+    - VERSION=2.7.8
+    - VERSION=3.4.1
+
+install:  
+  # CDF
+  - wget http://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf35_0_2/linux/cdf35_0-dist-cdf.tar.gz
+  - tar -zxvf cdf35_0-dist-cdf.tar.gz
+  - cd cdf35_0-dist
+  - make OS=macosx ENV=gnu all
+  - sudo make INSTALLDIR=/usr/local/cdf install
+  - cd ..
+
+  # spacepy
+  - git clone --depth 1 http://git.code.sf.net/p/spacepy/code spacepy
+  - cd spacepy && python setup.py install --user && cd ..
+  
+  - brew install netcdf hdf5 exiftool ffmpeg    
+  - pip install auromat[cdf,netcdf]
+
+script:
+  - nosetests --verbosity=3 --nocapture auromat.test
