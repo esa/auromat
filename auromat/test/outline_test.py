@@ -14,6 +14,11 @@ from numpy.testing.utils import assert_almost_equal
 from auromat.mapping.spacecraft import getMapping
 import os.path
 
+try:
+    import cv2 as cv
+except ImportError:
+    cv = None
+
 def _testIm(n=10):
     coord = np.ones((n,n))
 
@@ -137,8 +142,10 @@ class Test(unittest.TestCase):
             (10,200)
             ]
         
-        assert_almost_equal(polygonCentroid(poly), _polygonCentroidOpenCV(poly))
         assert_almost_equal(polygonCentroid(poly), (159.2903828197946, 98.88888888888))
+        
+        if cv:
+            assert_almost_equal(polygonCentroid(poly), _polygonCentroidOpenCV(poly))
     
     @attr('slow')
     def testMappingCentroid(self):
