@@ -25,7 +25,9 @@ from auromat.util import coroutine
 import numpy as np
 import datetime
 from numpy.testing.utils import assert_equal
+from nose.plugins.attrib import attr
 
+@attr('slow')
 class Test(unittest.TestCase):
     def _testHorizonImage(self):
         m = _getMappingNorth()

@@ -3,6 +3,7 @@
 from __future__ import division
 
 import unittest
+from nose.plugins.attrib import attr
 import os
 import tempfile
 
@@ -12,6 +13,7 @@ from spacepy import pycdf
 from auromat.mapping.cdf import CDFMapping
 from auromat.test.export_netcdf_test import check_equal
 
+@attr('slow')
 class Test(unittest.TestCase):
 
     def testCDFExport(self):

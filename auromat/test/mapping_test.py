@@ -3,14 +3,15 @@
 from __future__ import print_function
 
 import unittest
+from nose.plugins.attrib import attr
 import os
 import numpy as np
 from auromat.mapping.spacecraft import getMapping
 from auromat.resample import resample
-from mpl_toolkits.basemap import Basemap
 from auromat.mapping import miracle
 from auromat.draw_helpers import generatePolygonsFromMapping
 
+@attr('slow')
 class Test(unittest.TestCase):
 
     def testSpacecraftMappingNorth2(self):
@@ -18,7 +19,7 @@ class Test(unittest.TestCase):
         foo = generatePolygonsFromMapping(m)
         print(foo)
 
-    def _testSpacecraftMappingNorth(self):
+    def testSpacecraftMappingNorth(self):
         m = _getMappingNorth()
         m.checkGuarantees()
         m2 = m.maskedByElevation(10)
@@ -30,7 +31,7 @@ class Test(unittest.TestCase):
         m3 = resample(m, arcsecPerPx=100, method='mean')
         m3.checkGuarantees()
         
-    def _testSpacecraftMappingSouth(self):
+    def testSpacecraftMappingSouth(self):
         m = _getMappingSouth()
         m.checkGuarantees()
         m = m.maskedByElevation(10)
@@ -38,7 +39,7 @@ class Test(unittest.TestCase):
         m = resample(m, arcsecPerPx=100, method='mean')
         m.checkGuarantees()
         
-    def _testMiracleMapping(self):
+    def testMiracleMapping(self):
         m = _getMiracleMapping()
         m.checkGuarantees()
         m = m.maskedByElevation(10)

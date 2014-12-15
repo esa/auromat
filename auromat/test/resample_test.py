@@ -8,6 +8,7 @@ from astropy.coordinates import Angle
 import astropy.units as u
 
 import unittest
+from nose.plugins.attrib import attr
 
 from auromat.resample import resample, resampleMLatMLT
 from auromat.mapping.mapping import GenericMapping, checkPlateCarree
@@ -85,7 +86,8 @@ class Test(unittest.TestCase):
         mlat, mlt = mapping.mLatMlt
         smlon = mltToSmLon(mlt)
         checkPlateCarree(mlat, smlon)
-                        
+    
+    @attr('slow')          
     def testReal(self):
         m1 = _getMapping()
         m2 = resample(m1, pxPerDeg=15, method='mean')
@@ -95,7 +97,8 @@ class Test(unittest.TestCase):
         
         assert_array_approx_equal(_bbToArray(m2.boundingBox), _bbToArray(m1.boundingBox), 1)
         assert_array_approx_equal(_bbToArray(m3.boundingBox), _bbToArray(m1.boundingBox), 1)
-        
+    
+    @attr('slow')    
     def testPoleBug(self):
         m1 = _getMapping()
         m2 = resample(m1, arcsecPerPx=100, method='mean')

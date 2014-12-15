@@ -4,6 +4,7 @@ from __future__ import division
 
 import os.path
 import unittest
+from nose.plugins.attrib import attr
 import numpy as np
 import numpy.ma as ma
 from numpy.testing.utils import assert_array_almost_equal,\
@@ -134,8 +135,9 @@ class Test(unittest.TestCase):
             
             res = sphereLineIntersection(r, origin, direction2, directed=True)
             assert_array_equal(res, intersection2)
-                
-    def _testIntersectionBug(self):
+        
+    @attr('slow')       
+    def testIntersectionBug(self):
         """
         An optimized code path led to choosing the intersection points on the
         other side of the earth for a particular mapping. This mapping
@@ -148,8 +150,9 @@ class Test(unittest.TestCase):
         m = _getISSMapping()
         dists = m.distance
         assert dists[-1,2000] < dists[-100,2000]
-        
-    def _testIntersectionBug2(self):
+    
+    @attr('slow') 
+    def testIntersectionBug2(self):
         """
         For the sequence beginning with ISS029-E-8492 there are intersection
         areas at the top of the image which should not be there.
