@@ -3,6 +3,7 @@
 from __future__ import absolute_import
 
 import unittest
+from nose.plugins.attrib import attr
 import os.path
 from datetime import datetime
 
@@ -15,6 +16,7 @@ from auromat.util.coroutine import broadcast
 url = 'http://127.0.0.1:5001/api/georef_seqs/12'
 cacheFolder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'iss_cache')
 
+@attr('slow')
 class Test(unittest.TestCase):
     def _testSingle(self):
         provider = ISSMappingProvider(url, cacheFolder, altitude=110)

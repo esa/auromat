@@ -5,10 +5,12 @@ from __future__ import division, print_function
 import numpy as np
 
 import unittest
+from nose.plugins.attrib import attr
 
 import os
 from auromat.mapping.spacecraft import getMapping
 
+@attr('slow')
 class Test(unittest.TestCase):            
     def testReal(self):
         m = _getMapping1()

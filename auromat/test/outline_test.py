@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 import unittest
+from nose.plugins.attrib import attr
 
 from auromat.utils import _outline_opencv, _outline_skimage, polygonArea,\
     polygonCentroid, _polygonCentroidOpenCV
@@ -139,6 +140,7 @@ class Test(unittest.TestCase):
         assert_almost_equal(polygonCentroid(poly), _polygonCentroidOpenCV(poly))
         assert_almost_equal(polygonCentroid(poly), (159.2903828197946, 98.88888888888))
     
+    @attr('slow')
     def testMappingCentroid(self):
         m = _getMapping()
         # for many polygon points like here, the two solutions (opencv using moments and

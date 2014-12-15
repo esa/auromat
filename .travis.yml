@@ -45,7 +45,7 @@ script:
   - mkdir tmp_for_test
   - cd tmp_for_test
   # run tests and print syslog in case we get killed (to check for out of memory)
-  - nosetests --verbosity=3 --nocapture ../auromat/test ;
+  - nosetests --verbosity=3 --nocapture -a '!slow' ../auromat/test ;
     RETVAL=$? ;
     if [ $RETVAL -ne 0 ]; then
       if [ $RETVAL -eq 137 ]; then

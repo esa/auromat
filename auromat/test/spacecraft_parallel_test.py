@@ -2,10 +2,12 @@
 
 from __future__ import absolute_import, print_function
 
+from nose.plugins.attrib import attr
 import os
 from time import sleep
 from auromat.mapping.spacecraft import getMappingSequence
 
+@attr('slow')
 def parallelTest():
     n = 5
     imagePaths = [getResourcePath('ISS030-E-102170_dc.jpg')]*n

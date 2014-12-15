@@ -3,6 +3,7 @@
 from __future__ import division, absolute_import
 
 import unittest
+from nose.plugins.attrib import attr
 from numpy.ma.testutils import assert_array_almost_equal,\
     assert_array_equal, assert_equal
 import os
@@ -13,8 +14,8 @@ from auromat.mapping.spacecraft import getMapping
 from auromat.resample import resample
 import auromat.export.netcdf
 from auromat.mapping.netcdf import NetCDFMapping
-    
 
+@attr('slow')
 class Test(unittest.TestCase):
 
     def testRawNetCDFExport(self):
