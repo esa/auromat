@@ -2,30 +2,33 @@
 
 from __future__ import print_function
 
+import os
 from six.moves import map
 import unittest
-import os
-from auromat.mapping.spacecraft import getMapping
-from auromat.draw import drawMLatMLTPolar, drawStereographic,\
-    drawStereographicMLatMLT, drawHeatmap, drawHeatmaps,\
-    drawHorizon, drawIndxPlot, saveFig, drawConstellations,\
-    setColors, drawParallelsAndMeridians, drawScanLinesCo,\
-    drawScanLinesMLatMLTCo
-from auromat.resample import resample
-from mpl_toolkits.basemap import Basemap
-import matplotlib.pyplot as plt
-from auromat.mapping import miracle
-from auromat.mapping.mapping import BoundingBox, GenericMapping
-from auromat.draw_helpers import loadFigImage
-from auromat.fits import readHeader, getCenterRADec
-from astropy.wcs.wcs import WCS
-from auromat.utils import outline
-import time
-from auromat.util import coroutine
-import numpy as np
-import datetime
 from numpy.testing.utils import assert_equal
 from nose.plugins.attrib import attr
+
+from auromat.mapping.spacecraft import getMapping
+from auromat.resample import resample
+from auromat.mapping import miracle
+from auromat.mapping.mapping import BoundingBox, GenericMapping
+from auromat.utils import outline
+from auromat.util import coroutine
+import numpy as np
+
+try:
+    from auromat.draw import drawMLatMLTPolar, drawStereographic,\
+        drawStereographicMLatMLT, drawHeatmap, drawHeatmaps,\
+        drawHorizon, drawIndxPlot, saveFig, drawConstellations,\
+        drawParallelsAndMeridians, drawScanLinesCo,\
+        drawScanLinesMLatMLTCo
+    from mpl_toolkits.basemap import Basemap
+    import matplotlib.pyplot as plt
+    from auromat.draw_helpers import loadFigImage
+except ImportError as e:
+    print(repr(e))
+    # import is optional so that the test module import doesn't fail if
+    # the tests are not actually run and matplotlib is not installed
 
 @attr('slow')
 class Test(unittest.TestCase):
