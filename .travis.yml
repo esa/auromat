@@ -30,7 +30,7 @@ install:
   - conda install --yes numpy scipy astropy numexpr scikit-image pillow matplotlib basemap pip
   # OpenCV only supports Python 3 in the new 3.0 version (to be released)
   - if [[ $TRAVIS_PYTHON_VERSION == 2.7 ]]; then
-      conda install --yes opencv
+      conda install --yes opencv ;
     fi
   - pip install -r dev-requirements.txt
   - python setup.py sdist 
