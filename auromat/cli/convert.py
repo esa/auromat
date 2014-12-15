@@ -35,7 +35,7 @@ Convert everything in the current directory with default settings:
 auromat-convert --format cdf
 
 Convert data in iss/seq-1 folder with 100km mapping altitude:
-auromat-convert --data iss/seq-1 --format cdf --altitude=100
+auromat-convert --data iss/seq-1 --format cdf --altitude 100
 
 Resample and convert data:
 auromat-convert --format cdf --resample --resolution 80
