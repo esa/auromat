@@ -92,7 +92,7 @@ see http://pip.readthedocs.org/en/latest/installing.html for instructions.
 Some required Python packages (as of late 2014) don't offer Windows binary
 wheels on PyPI yet. Therefore, you have to install them manually:
 
-Please install numpy, scipy, scikit-image, astropy, and pyephem from
+Please install numpy, scipy, numexpr, scikit-image, astropy, and pyephem from
 http://www.lfd.uci.edu/~gohlke/pythonlibs/
 
 If you want to use THEMIS data or export in CDF format you have to
