@@ -6,7 +6,6 @@ import unittest
 import numpy as np
     
 from auromat.coordinates.geodesic import containsOrCrossesPole
-from auromat.draw import drawLinePlot, saveFig
 from auromat.utils import convexHull
 
 class Test(unittest.TestCase):
@@ -2140,9 +2139,10 @@ class Test(unittest.TestCase):
         outlineReduced100 = convexHull(outlineReduced100)
 #        outlineFull = convexHull(outlineFull)
         
-        for o,s in [(outlineFull, 'full'), (outlineReduced100, '100'), (outlineReduced50, '50')]:
-            o = np.append(o, [o[0]], axis=0) 
-            saveFig('outline_' + s + '.svg', drawLinePlot(o[:,1], o[:,0], 'Longitude', 'Latitude', linewidth=0.1))
+#        from auromat.draw import drawLinePlot, saveFig
+#        for o,s in [(outlineFull, 'full'), (outlineReduced100, '100'), (outlineReduced50, '50')]:
+#            o = np.append(o, [o[0]], axis=0) 
+#            saveFig('outline_' + s + '.svg', drawLinePlot(o[:,1], o[:,0], 'Longitude', 'Latitude', linewidth=0.1))
         
         assert not containsOrCrossesPole(outlineReduced50)
         assert not containsOrCrossesPole(outlineReduced100)

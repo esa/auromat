@@ -9,12 +9,15 @@ import numpy as np
 from auromat.mapping.spacecraft import getMapping
 from auromat.resample import resample
 from auromat.mapping import miracle
-from auromat.draw_helpers import generatePolygonsFromMapping
 
 @attr('slow')
 class Test(unittest.TestCase):
 
     def testSpacecraftMappingNorth2(self):
+        # late import so that the test module import doesn't fail if
+        # the tests are not actually run and matplotlib is not installed
+        from auromat.draw_helpers import generatePolygonsFromMapping
+        
         m = _getMappingNorth()
         foo = generatePolygonsFromMapping(m)
         print(foo)

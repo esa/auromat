@@ -1,6 +1,6 @@
 # Copyright European Space Agency, 2013
 
-from __future__ import absolute_import
+from __future__ import absolute_import, print_function
 
 import unittest
 from nose.plugins.attrib import attr
@@ -9,8 +9,14 @@ from datetime import datetime
 
 from auromat.mapping.iss import ISSMappingProvider
 from auromat.resample import resample
-from auromat.draw import drawStereographicMLatMLT, drawScanLinesMLatMLTCo,\
-    saveFig
+try:
+    from auromat.draw import drawStereographicMLatMLT, drawScanLinesMLatMLTCo,\
+        saveFig
+except ImportError as e:
+    print(repr(e))
+    # import is optional so that the test module import doesn't fail if
+    # the tests are not actually run and matplotlib is not installed
+    
 from auromat.util.coroutine import broadcast
 
 url = 'http://127.0.0.1:5001/api/georef_seqs/12'
