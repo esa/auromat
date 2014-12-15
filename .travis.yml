@@ -19,6 +19,7 @@ install:
   - cd ..
 
   # spacepy
+  - sudo pip install numpy
   - git clone --depth 1 http://git.code.sf.net/p/spacepy/code spacepy
   - cd spacepy && sudo python setup.py install && cd ..
   
