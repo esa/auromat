@@ -18,7 +18,13 @@ install:
   - git clone --depth 1 http://git.code.sf.net/p/spacepy/code spacepy
   - cd spacepy && python setup.py install --user && cd ..
   
-  - brew install netcdf hdf5 exiftool ffmpeg    
+  # some other native software/libraries
+  - brew install exiftool ffmpeg
+  
+  - brew tap homebrew/science
+  - brew install netcdf hdf5
+  
+  # and finally install auromat itself
   - pip install auromat[cdf,netcdf]
 
 script:
