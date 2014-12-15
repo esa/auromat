@@ -83,7 +83,7 @@ def createMovie(moviePath, imagePaths, frameRate=25, crf=18, maxBitrate=2000, wi
             
         if process.returncode != 0:
             raise RuntimeError('ffmpeg returned exit code ' + str(process.returncode) + '; cmd line: ' + ' '.join(args) + '; ' +
-                               'stdout&stderr output follows: ' + stdout)
+                               'stdout&stderr output follows: ' + stdout.decode('ascii'))
     finally:
         shutil.rmtree(tempFolder)
     
