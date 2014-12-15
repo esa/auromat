@@ -23,6 +23,7 @@ As this is not yet released on PyPI, you have to install it manually using:
 
 .. code:: sh
 
+	pip install --user numpy python-dateutil
     git clone --depth 1 http://git.code.sf.net/p/spacepy/code spacepy
     cd spacepy && python setup.py install --user && cd ..
 
@@ -61,9 +62,10 @@ Also, for using the CDF library in Python we need the spacepy library.
 As this is not yet released on PyPI, you have to install it manually using:
 
 .. code:: sh
-
+	
+	sudo pip install numpy python-dateutil
     git clone --depth 1 http://git.code.sf.net/p/spacepy/code spacepy
-    cd spacepy && python setup.py install --user && cd ..
+    cd spacepy && sudo python setup.py install && cd ..
 
 If you want to export in netCDF format:
 
