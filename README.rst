@@ -63,7 +63,7 @@ As this is not yet released on PyPI, you have to install it manually using:
 
 .. code:: sh
 	
-	sudo pip install numpy python-dateutil
+    sudo pip install numpy python-dateutil
     git clone --depth 1 http://git.code.sf.net/p/spacepy/code spacepy
     cd spacepy && sudo python setup.py install && cd ..
 
@@ -71,7 +71,7 @@ If you want to export in netCDF format:
 
 .. code:: sh
 
-	brew tap homebrew/science
+    brew tap homebrew/science
     brew install netcdf hdf5
 
 Now, install auromat with:
