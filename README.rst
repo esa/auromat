@@ -14,10 +14,20 @@ Before installing auromat, some system libraries have to be installed.
 
 .. code:: sh
 
-    sudo apt-get install libraw-dev liblensfun-dev
+    sudo apt-get install libraw-dev liblensfun-dev libgeos-dev
 
 If you want to use THEMIS data or export in CDF format you have to
-install NASA's CDF library, see http://cdf.gsfc.nasa.gov for details.
+install `NASA's CDF library <http://cdf.gsfc.nasa.gov>`_:
+
+.. code:: sh
+
+    wget http://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf35_0_2/linux/cdf35_0-dist-cdf.tar.gz
+    tar xf cdf35_0-dist-cdf.tar.gz
+    cd cdf35_0-dist
+    make OS=linux ENV=gnu all
+    sudo make INSTALLDIR=/usr/local/cdf install
+    cd ..
+
 Also, for using the CDF library in Python we need the spacepy library.
 As this is not yet released on PyPI, you have to install it manually using:
 
@@ -32,14 +42,27 @@ If you want to export in netCDF format:
 .. code:: sh
 
     sudo apt-get install libnetcdf-dev libhdf5-serial-dev
- 
+
+If you want to draw any kind of geographic maps, install the basemap library with:
+
+.. code:: sh
+
+    pip install --user --allow-external basemap --allow-unverified basemap basemap
+
 Now, install auromat with:
 
 .. code:: sh
 
-    pip install --user auromat[cdf,netcdf,plotting]
+    pip install --user auromat[cdf,netcdf]
 
-Support for CDF, netCDF or plotting can be left out using auromat[cdf] etc.
+Support for CDF or netCDF can be left out using auromat[cdf] or auromat[netcdf], respectively.
+
+The command-line tools are installed in ~/.local/bin. For convenience you should add this folder
+to your PATH if that is not the case already:
+
+.. code:: sh
+
+    export PATH=$HOME/.local/bin:$PATH
 
 Installation under Mac OS X
 ---------------------------
@@ -49,23 +72,34 @@ First, install Homebrew if you don't have it yet:
 .. code:: sh
 
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    brew update
 
-Then, install some native software with Homebrew:
+Then, install Python 3 with Homebrew:
 
 .. code:: sh
 
-    brew install git python
+    brew install python3
 
 If you want to use THEMIS data or export in CDF format you have to
-install NASA's CDF library, see http://cdf.gsfc.nasa.gov for details.
+install `NASA's CDF library <http://cdf.gsfc.nasa.gov>`_:
+
+.. code:: sh
+
+    curl -O http://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf35_0_2/linux/cdf35_0-dist-cdf.tar.gz
+    tar xf cdf35_0-dist-cdf.tar.gz
+    cd cdf35_0-dist
+    make OS=macosx ENV=gnu all
+    sudo make INSTALLDIR=/usr/local/cdf install
+    cd ..
+
 Also, for using the CDF library in Python we need the spacepy library.
 As this is not yet released on PyPI, you have to install it manually using:
 
 .. code:: sh
 	
-    sudo pip install numpy python-dateutil
+    pip3 install numpy python-dateutil
     git clone --depth 1 http://git.code.sf.net/p/spacepy/code spacepy
-    cd spacepy && sudo python setup.py install && cd ..
+    cd spacepy && python3 setup.py install && cd ..
 
 If you want to export in netCDF format:
 
@@ -74,13 +108,20 @@ If you want to export in netCDF format:
     brew tap homebrew/science
     brew install netcdf hdf5
 
+If you want to draw any kind of geographic maps, install the basemap library with:
+
+.. code:: sh
+    
+    brew install geos
+    pip3 install --allow-external basemap --allow-unverified basemap basemap
+
 Now, install auromat with:
 
 .. code:: sh
 
-    pip install --user auromat[cdf,netcdf,plotting]
+    sudo pip3 install auromat[cdf,netcdf]
 
-Support for CDF, netCDF or plotting can be left out using auromat[cdf] etc.
+Support for CDF or netCDF can be left out using auromat[cdf] or auromat[netcdf], respectively.
 
 Installation under Windows
 --------------------------
@@ -114,9 +155,9 @@ Now, install auromat with:
 
 .. code:: sh
 
-    pip install --user auromat[cdf,netcdf,plotting]
+    pip install --user auromat[cdf,netcdf]
 
-Support for CDF, netCDF or plotting can be left out using auromat[cdf] etc.
+Support for CDF or netCDF can be left out using auromat[cdf] or auromat[netcdf], respectively.
 
 Advanced functionality
 ----------------------

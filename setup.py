@@ -39,6 +39,7 @@ setup(
                       'numpy>=1.6',
                       'scipy>=0.9',
                       'matplotlib', # required by auromat.utils
+                      'brewer2mpl',
                       'numexpr',
                       'scikit-image',
                       'pillow', # used by scikit-image
@@ -54,7 +55,6 @@ setup(
     extras_require = {
         'netcdf': ['netCDF4'], # for netCDF export
         'cdf': ['spacepy'], # for CDF export and reading THEMIS CDF files
-        'plotting': ['brewer2mpl', 'basemap'],
     },
     package_data = {
         '': ['*.dbf', '*.shp', '*.shx'],
