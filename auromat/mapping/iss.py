@@ -13,10 +13,10 @@ import numpy as np
 
 from auromat.mapping.mapping import BaseMappingProvider
 import auromat.utils
-from auromat.util.url import downloadJSON, downloadFile
+from auromat.util.url import downloadFile
 from auromat.mapping.spacecraft import getMapping, getMappingSequence
 from auromat.util.os import makedirs
-from auromat.util.lensdistortion import lensfunXML, getLensfunModifierFromParams
+from auromat.util.lensdistortion import getLensfunModifierFromParams
 from auromat.util.image import saveImage, croppedImage
 from auromat.util.decorators import inherit_docs
 
@@ -28,7 +28,7 @@ except ImportError as e:
     print(repr(e))
     warnings.warn('rawpy or lensfunpy is missing, no RAW support available')
 
-defaultBaseUrl = 'https://util1.estec.esa.int/arrrgh/frontend/api/georef_seqs/'
+defaultBaseUrl = 'http://arrrgh-tools.cosmos.esa.int/api/georef_seqs/'
 
 isoDateFormat = '%Y-%m-%dT%H:%M:%S.%f'
 
