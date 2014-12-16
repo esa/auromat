@@ -75,7 +75,7 @@ def getParser():
     
     mappingArgs = parser.add_argument_group('mapping')
     mappingArgs.add_argument('--altitude', help='Altitude in km onto which to map the images, '
-                                                'default is 110km', default=110)
+                                                'default is 110km', default=110, type=int)
     
     esaIssArgs = parser.add_argument_group('ESA ISS data')
     esaIssArgs.add_argument('--bps', help='bits per sample, default is 16', choices=[8,16], default=16)
