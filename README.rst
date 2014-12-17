@@ -34,8 +34,7 @@ As this is not yet released on PyPI, you have to install it manually using:
 .. code:: sh
 
     pip install --user numpy python-dateutil
-    git clone --depth 1 http://git.code.sf.net/p/spacepy/code spacepy
-    cd spacepy && python setup.py install --user && cd ..
+    pip install --user git+http://git.code.sf.net/p/spacepy/code
 
 If you want to export in netCDF format:
 
@@ -98,8 +97,7 @@ As this is not yet released on PyPI, you have to install it manually using:
 .. code:: sh
 	
     pip3 install numpy python-dateutil
-    git clone --depth 1 http://git.code.sf.net/p/spacepy/code spacepy
-    cd spacepy && python3 setup.py install && cd ..
+    pip3 install git+http://git.code.sf.net/p/spacepy/code
 
 If you want to export in netCDF format:
 
