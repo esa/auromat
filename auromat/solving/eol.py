@@ -81,7 +81,7 @@ jpgUrlPattern = 'http://eol.jsc.nasa.gov/DatabaseImages/ESC/large/{mission}/{mis
 jpgFilePattern = '{mission}-{roll}-{frame}.jpg' # the filename on disk
 
 # 'file' is extracted from the photoPage
-photoPageUrlPattern = 'http://eol.jsc.nasa.gov/SearchPhotos/photo.p?mission={mission}&roll={roll}&frame={frame}'
+photoPageUrlPattern = 'http://eol.jsc.nasa.gov/SearchPhotos/photo.pl?mission={mission}&roll={roll}&frame={frame}'
 rawFilePhotoPagePattern = r'<a href=RequestOriginalImage.pl\?mission=[A-Z\d]+&roll=[A-Z\d]+&frame=[\d]+&file=([\w\.]+)>'
 rawRequestUrlPattern = 'http://eol.jsc.nasa.gov/SearchPhotos/RequestOriginalImage.pl?mission={mission}&roll={roll}&frame={frame}&file={file}'
 rawUrlPattern = 'http://eol.jsc.nasa.gov/OriginalImagery/{file}'
