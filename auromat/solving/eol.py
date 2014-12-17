@@ -77,17 +77,17 @@ class LensDistortionCorrectionParams(object):
         self.focalLength = focalLength
         self.aperture = aperture
 
-jpgUrlPattern = 'http://eol.jsc.nasa.gov/sseop/images/ESC/large/{mission}/{mission}-{roll}-{frame}.JPG'
+jpgUrlPattern = 'http://eol.jsc.nasa.gov/DatabaseImages/ESC/large/{mission}/{mission}-{roll}-{frame}.JPG'
 jpgFilePattern = '{mission}-{roll}-{frame}.jpg' # the filename on disk
 
 # 'file' is extracted from the photoPage
-photoPageUrlPattern = 'http://eol.jsc.nasa.gov/scripts/sseop/photo.pl?mission={mission}&roll={roll}&frame={frame}'
+photoPageUrlPattern = 'http://eol.jsc.nasa.gov/SearchPhotos/photo.p?mission={mission}&roll={roll}&frame={frame}'
 rawFilePhotoPagePattern = r'<a href=RequestOriginalImage.pl\?mission=[A-Z\d]+&roll=[A-Z\d]+&frame=[\d]+&file=([\w\.]+)>'
-rawRequestUrlPattern = 'http://eol.jsc.nasa.gov/scripts/sseop/RequestOriginalImage.pl?mission={mission}&roll={roll}&frame={frame}&file={file}'
-rawUrlPattern = 'http://eol.jsc.nasa.gov/sseop/OriginalImagery/{file}'
+rawRequestUrlPattern = 'http://eol.jsc.nasa.gov/SearchPhotos/RequestOriginalImage.pl?mission={mission}&roll={roll}&frame={frame}&file={file}'
+rawUrlPattern = 'http://eol.jsc.nasa.gov/OriginalImagery/{file}'
 rawFilePatternNoExt = '{mission}-{roll}-{frame}' # extension not in here, could be .nef or something else
 
-auroraVideosUrl = 'http://eol.jsc.nasa.gov/Videos/CrewEarthObservationsVideos/Videos_Aurora.htm'
+auroraVideosUrl = 'http://eol.jsc.nasa.gov/ForFun/CrewEarthObservationsVideos/Aurora.htm'
 auroraVideosPattern = r'<a name="([a-zA-Z\d_]+)">(.+?)</a>.+?' +\
                       '<a href="/scripts/sseop/photo.pl\?mission=([A-Z\d]+)&roll=([A-Z\d]+)&frame=([\d]+)" target="_blank">' +\
                       '<nobr>[A-Z\d-]+</a> to ' +\
@@ -399,7 +399,7 @@ Sequence = namedtuple('Sequence', ['mission', 'roll', 'fromFrame', 'toFrame', 't
 def extractAuroraSequences():
     """
     Extracts metadata of all sequences found on
-    http://eol.jsc.nasa.gov/Videos/CrewEarthObservationsVideos/Videos_Aurora.htm.
+    http://eol.jsc.nasa.gov/ForFun/CrewEarthObservationsVideos/Aurora.htm.
     """
     content = urllib.request.urlopen(auroraVideosUrl).read()
     sequences = []
@@ -487,27 +487,4 @@ def correctLensDistortion(folderPath, undistFolderPath, lensfunDbObj=None):
     meta.lensDistortionCorrectionParams = dcParams
     
     storeMetaData(undistFolderPath, meta)
-    
-if __name__ == '__main__':
-    from os.path import expanduser
-    home = expanduser("~")
-    rootFolderPath = os.path.join(home, 'data/images/aurora_sequences_jpg')
-    rootUndistFolderPath = os.path.join(home, 'data/images/aurora_sequences_jpg_dc')
-    success, _ = downloadAuroraSequences(rootFolderPath, 'jpg')
-    if success:
-        print('All aurora sequences were downloaded successfully')
-                
-        lensfunDb = lensfunpy.Database()
-        
-        folders = os.listdir(rootFolderPath)
-        folderPaths = [os.path.join(rootFolderPath, f) for f in folders]
-        folderPaths = filter(os.path.isdir, folderPaths)
-        
-        for folderPath in folderPaths:
-            undistFolderPath = os.path.join(rootUndistFolderPath, os.path.basename(folderPath))
-            try:
-                correctLensDistortion(folderPath, undistFolderPath, lensfunDb)
-            except (CameraNotFoundInEXIFError, LensNotFoundInEXIFError, LensNotFoundInDBError, CameraNotFoundInDBError) as e:
-                print('Lens correction not done for ' + folderPath + ': ' + str(e))
-
     

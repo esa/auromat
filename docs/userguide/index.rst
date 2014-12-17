@@ -219,15 +219,15 @@ Use case: Georeferencing astronaut photography
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 We are going to georeference frames 
-`ISS040-E-64750 <http://eol.jsc.nasa.gov/scripts/sseop/photo.pl?mission=ISS040&roll=E&frame=64750>`_ to
-`ISS040-E-64770 <http://eol.jsc.nasa.gov/scripts/sseop/photo.pl?mission=ISS040&roll=E&frame=64770>`_
+`ISS040-E-64750 <http://eol.jsc.nasa.gov/SearchPhotos/photo.pl?mission=ISS040&roll=E&frame=64750>`_ to
+`ISS040-E-64770 <http://eol.jsc.nasa.gov/SearchPhotos/photo.pl?mission=ISS040&roll=E&frame=64770>`_
 from NASA's astronaut photography website.
 
-.. image:: http://eol.jsc.nasa.gov/sseop/images/ESC/small/ISS040/ISS040-E-64760.JPG
+.. image:: http://eol.jsc.nasa.gov/DatabaseImages/ESC/small/ISS040/ISS040-E-64760.JPG
 
 These image were taken 15 July 2014.
 For simplicity's sake we will use the 
-`JPEG versions <http://eol.jsc.nasa.gov/sseop/images/ESC/large/ISS040/ISS040-E-64770.JPG>`_ 
+`JPEG versions <http://eol.jsc.nasa.gov/DatabaseImages/ESC/large/ISS040/ISS040-E-64770.JPG>`_ 
 , but similar steps apply to RAW images.
 
 First, we download the frames:
@@ -236,9 +236,9 @@ First, we download the frames:
 >>> imgfolder = '/data/iss_imgs'
 >>> metadata, failures = downloadImageSequence(imgfolder, 'ISS040', 64750, 64770, 'jpg')
 downloading sequence frames 64750 to 64770 of ISS040-E
-downloading http://eol.jsc.nasa.gov/sseop/images/ESC/large/ISS040/ISS040-E-64750.JPG-> done
+downloading http://eol.jsc.nasa.gov/DatabaseImages/ESC/large/ISS040/ISS040-E-64750.JPG-> done
 ...
-downloading http://eol.jsc.nasa.gov/sseop/images/ESC/large/ISS040/ISS040-E-64770.JPG-> done
+downloading http://eol.jsc.nasa.gov/DatabaseImages/ESC/large/ISS040/ISS040-E-64770.JPG-> done
 >>> failures
 []
 
