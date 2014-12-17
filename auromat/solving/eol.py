@@ -82,7 +82,7 @@ jpgFilePattern = '{mission}-{roll}-{frame}.jpg' # the filename on disk
 
 # 'file' is extracted from the photoPage
 photoPageUrlPattern = 'http://eol.jsc.nasa.gov/SearchPhotos/photo.pl?mission={mission}&roll={roll}&frame={frame}'
-rawFilePhotoPagePattern = r'<a href=RequestOriginalImage.pl\?mission=[A-Z\d]+&roll=[A-Z\d]+&frame=[\d]+&file=([\w\.]+)>'
+rawFilePhotoPagePattern = r'"RequestOriginalImage.pl\?mission=[A-Z\d]+&roll=[A-Z\d]+&frame=[\d]+&file=([\w\.]+)"'
 rawRequestUrlPattern = 'http://eol.jsc.nasa.gov/SearchPhotos/RequestOriginalImage.pl?mission={mission}&roll={roll}&frame={frame}&file={file}'
 rawUrlPattern = 'http://eol.jsc.nasa.gov/OriginalImagery/{file}'
 rawFilePatternNoExt = '{mission}-{roll}-{frame}' # extension not in here, could be .nef or something else
