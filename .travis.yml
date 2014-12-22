@@ -11,6 +11,7 @@ install:
   - cd terryfy && git fetch && git checkout master && cd ..
   - source terryfy/travis_tools.sh
   - travis_retry get_python_environment homebrew $VERSION venv | cat
+  - python --version
 
   # CDF
   - wget http://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf35_0_2/linux/cdf35_0-dist-cdf.tar.gz
