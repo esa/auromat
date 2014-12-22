@@ -10,7 +10,7 @@ env:
 install:
   - cd terryfy && git fetch && git checkout master && cd ..
   - source terryfy/travis_tools.sh
-  - travis_retry get_python_environment homebrew $VERSION venv | cat
+  - travis_retry get_python_environment homebrew $VERSION venv
   - echo $PATH
   - python --version
 
