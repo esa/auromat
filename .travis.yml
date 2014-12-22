@@ -5,10 +5,12 @@ env:
     - VERSION=2
     - VERSION=3
 
+# 'cat' is used to emulate a non-tty shell, see https://github.com/travis-ci/travis-ci/issues/3034
+
 install:
   - cd terryfy && git fetch && git checkout master && cd ..
   - source terryfy/travis_tools.sh
-  - travis_retry get_python_environment homebrew $VERSION venv
+  - travis_retry get_python_environment homebrew $VERSION venv | cat
 
   # CDF
   - wget http://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf35_0_2/linux/cdf35_0-dist-cdf.tar.gz
@@ -19,20 +21,20 @@ install:
   - cd ..
 
   # spacepy
-  - pip install numpy python-dateutil
+  - pip install numpy python-dateutil | cat
   - git clone --depth 1 http://git.code.sf.net/p/spacepy/code spacepy
   - cd spacepy && python setup.py install && cd ..
   
   # some other native software/libraries
-  - brew install exiftool ffmpeg
+  - brew install exiftool ffmpeg | cat
   
   - brew tap homebrew/science
-  - brew install netcdf hdf5
+  - brew install netcdf hdf5 | cat
   
   # and finally install auromat itself
-  - pip install auromat[cdf,netcdf]
+  - pip install auromat[cdf,netcdf] | cat
   
 
 script:
-  - pip install nose
+  - pip install nose | cat
   - nosetests --verbosity=3 --nocapture -a '!slow' auromat.test
