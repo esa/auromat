@@ -1,6 +1,8 @@
 language: objective-c
 
 env:
+#  global:
+    #- LATEST_TAG=1
   matrix:
     - VERSION=2
     - VERSION=3
@@ -13,6 +15,15 @@ install:
   - travis_retry get_python_environment homebrew $VERSION venv
   - echo $PATH
   - python --version
+  - if [ -n "$LATEST_TAG" ]; then 
+      checkout_closest_tag auromat ;
+    else
+      cd auromat ;
+      git fetch ;
+      git checkout -f master ;
+      git log -n 1 ;
+      cd .. ;
+    fi
 
   # CDF
   - wget http://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf35_0_2/linux/cdf35_0-dist-cdf.tar.gz
@@ -33,8 +44,15 @@ install:
   - brew install netcdf hdf5 | cat
   
   # and finally install auromat itself
-  - pip install auromat[cdf,netcdf] | cat  
+  - cd auromat
+  - python setup.py sdist
+  - pip install dist/*.tar.gz | cat
+  
+  - cd ..
 
 script:
   - pip install nose | cat
-  - nosetests --verbosity=3 --nocapture -a '!slow' auromat.test
+  - mkdir tmp_for_test
+  - cd tmp_for_test
+  - nosetests --verbosity=3 --nocapture -a '!slow' ../auromat/test
+  - cd ..
