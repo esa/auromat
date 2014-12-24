@@ -16,9 +16,9 @@ before_install:
   - sudo apt-get install libraw-dev liblensfun-dev libnetcdf-dev libhdf5-serial-dev libimage-exiftool-perl
   
   # latest ffmpeg (Ubuntu 12.04 supplies 0.8.16 which is too old)
-  - wget http://johnvansickle.com/ffmpeg/releases/ffmpeg-2.5-64bit-static.tar.xz 
-  - tar xf ffmpeg-2.5-64bit-static.tar.xz
-  - export PATH=$PATH:$PWD/ffmpeg-2.5-64bit-static
+  - wget http://johnvansickle.com/ffmpeg/releases/ffmpeg-2.5.1-64bit-static.tar.xz
+  - tar xf ffmpeg-2.5.1-64bit-static.tar.xz
+  - export PATH=$PATH:$PWD/ffmpeg-2.5.1-64bit-static
   
   # CDF
   - wget http://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf35_0_2/linux/cdf35_0-dist-cdf.tar.gz
