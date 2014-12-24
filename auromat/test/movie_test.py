@@ -1,20 +1,31 @@
 # Copyright European Space Agency, 2013
 
 import unittest
-from auromat.util.movie import createMovie
 import os
+import numpy as np
 import tempfile
+
+from auromat.util.movie import createMovie
+from auromat.util.image import saveImage
 
 
 class Test(unittest.TestCase):
+    def setUp(self):
+        # create test frame for movie creation
+        self.framePath = tempfile.mktemp(suffix='.jpg')
+        im = np.zeros((2832,4256,3), np.uint8)
+        saveImage(self.framePath, im)
+        
+    def tearDown(self):
+        os.remove(self.framePath)
 
     def testMp4Movie(self):
-        imagePaths = [getResourcePath('ISS030-E-102170_dc.jpg')]*30
+        imagePaths = [self.framePath]*30
         moviePath = tempfile.mktemp(suffix='.mp4')
         _createTempMovie(moviePath, lambda: createMovie(moviePath, imagePaths, width=1280))
             
     def testWebMMovie(self):
-        imagePaths = [getResourcePath('ISS030-E-102170_dc.jpg')]*30
+        imagePaths = [self.framePath]*30
         moviePath = tempfile.mktemp(suffix='.webm')
         _createTempMovie(moviePath, lambda: createMovie(moviePath, imagePaths, width=1280))
             
@@ -30,5 +41,3 @@ def _createTempMovie(moviePath, fn):
     else:
         os.remove(moviePath)
     
-def getResourcePath(name):
-    return os.path.join(os.path.dirname(os.path.abspath(__file__)), "resources/" + name)
