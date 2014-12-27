@@ -98,7 +98,7 @@ def downloadResource(url, fn, data=None, unifyErrors=True):
                 raise
     
 def _downloadResource(url, fn, data=None):
-    print('downloading', url, end='')
+    print('downloading', url, end=' ', flush=True)
     try:        
         req = urlopen(url, data=data) # throws also on 404
         res = fn(req)
