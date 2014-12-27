@@ -88,7 +88,7 @@ install `NASA's CDF library <http://cdf.gsfc.nasa.gov>`_:
     tar xf cdf35_0-dist-cdf.tar.gz
     cd cdf35_0-dist
     make OS=macosx ENV=gnu all
-    sudo make INSTALLDIR=/usr/local/cdf install
+    sudo make INSTALLDIR=/Applications/cdf install
     cd ..
 
 Also, for using the CDF library in Python we need the spacepy library.
