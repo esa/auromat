@@ -4,6 +4,7 @@ import unittest
 import os
 import numpy as np
 import tempfile
+from nose.plugins.attrib import attr
 
 from auromat.util.movie import createMovie
 from auromat.util.image import saveImage
@@ -23,7 +24,8 @@ class Test(unittest.TestCase):
         imagePaths = [self.framePath]*30
         moviePath = tempfile.mktemp(suffix='.mp4')
         _createTempMovie(moviePath, lambda: createMovie(moviePath, imagePaths, width=1280))
-            
+    
+    @attr('libvpx')
     def testWebMMovie(self):
         imagePaths = [self.framePath]*30
         moviePath = tempfile.mktemp(suffix='.webm')
