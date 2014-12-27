@@ -29,6 +29,9 @@ distortionTags = ['EXIF:Model', 'EXIF:Make', 'Composite:LensID',
                   # and some additional tags used by getLensfunModifier():
                   'EXIF:FocalLength#','Composite:Aperture#', 'Composite:ImageSize']
 
+# supports exiv2 and exiftool lens naming
+MIN_ACCEPTED_SCORE = 85
+
 def _readExifTags(imagePath, tagNames, exiftoolObj=None):
     if exiftoolObj:
         assert not exiftoolObj.nums
@@ -38,7 +41,12 @@ def _readExifTags(imagePath, tagNames, exiftoolObj=None):
             tags = et.get_tags(tagNames, imagePath)
     return tags
 
-def findCameraAndLensFromExif(tags, lensfunDbObj=None, minAcceptedScore=100, raiseIfNotFoundInDB=True):
+def findCameraAndLensFromExif(tags, lensfunDbObj=None, minAcceptedScore=MIN_ACCEPTED_SCORE, raiseIfNotFoundInDB=True):
+    '''
+    Note that as of lensfun 0.3.0 lens names are synced to exiv2's naming scheme.
+    Before that, exiftool's scheme was used. In general the correct lens will still be found
+    in either case with the default minimum score of 85 which is used here.
+    '''
     if not tags.get('Composite:LensID'):
         raise LensNotFoundInEXIFError('No LensID in EXIF data')
     
@@ -82,7 +90,7 @@ def findCameraAndLensFromExif(tags, lensfunDbObj=None, minAcceptedScore=100, rai
 
     return cam, lens
 
-def findCameraAndLens(imagePath, lensfunDbObj=None, exiftoolObj=None, retTags=False, minAcceptedScore=100):
+def findCameraAndLens(imagePath, lensfunDbObj=None, exiftoolObj=None, retTags=False, minAcceptedScore=MIN_ACCEPTED_SCORE):
     """
     Finds camera and lens from EXIF data.
     
@@ -98,7 +106,8 @@ def findCameraAndLens(imagePath, lensfunDbObj=None, exiftoolObj=None, retTags=Fa
     else:
         return cam, lens
 
-def getLensfunModifierFromExif(tags, width=None, height=None, lensfunDbObj=None, distance=10000):
+def getLensfunModifierFromExif(tags, width=None, height=None, lensfunDbObj=None, distance=10000,
+                               minAcceptedScore=MIN_ACCEPTED_SCORE):
     """
     WARNING: Not setting width and height may produce surprising results for RAW files.
     If width and height are not set, then Composite:ImageSize is used.
@@ -110,7 +119,7 @@ def getLensfunModifierFromExif(tags, width=None, height=None, lensfunDbObj=None,
                       'EXIF:FocalLength', 'Composite:Aperture' 
                       and optionally 'Composite:ImageSize' if width,height is None 
     """
-    cam, lens = findCameraAndLensFromExif(tags, lensfunDbObj)
+    cam, lens = findCameraAndLensFromExif(tags, lensfunDbObj, minAcceptedScore=minAcceptedScore)
     
     if width is None:
         width, height = tags['Composite:ImageSize'].split('x')
@@ -137,17 +146,19 @@ def getLensfunModifierFromParams(model, params, width, height):
     mod.initialize(1, 1)
     return mod
 
-def getLensfunModifier(imagePath, width=None, height=None, lensfunDbObj=None, exiftoolObj=None, distance=10000):
+def getLensfunModifier(imagePath, width=None, height=None, lensfunDbObj=None, exiftoolObj=None, distance=10000,
+                       minAcceptedScore=MIN_ACCEPTED_SCORE):
     """
     See :func:`getLensfunModifierFromExif` for a WARNING on not setting width and height.
     """
     tags = _readExifTags(imagePath, distortionTags, exiftoolObj)
-    mod, cam, lens = getLensfunModifierFromExif(tags, width, height, lensfunDbObj, distance)
+    mod, cam, lens = getLensfunModifierFromExif(tags, width, height, lensfunDbObj, distance,
+                                                minAcceptedScore=minAcceptedScore)
     return mod, cam, lens
 
 def correctLensDistortion(imagePath, undistImagePath, 
                           lensfunDbObj=None, mod=None, 
-                          exiftoolObj=None, preserveExif=True,
+                          exiftoolObj=None, preserveExif=True, minAcceptedScore=MIN_ACCEPTED_SCORE,
                           **saveImageKws):
     """
     Correct lens distortion of an image using its EXIF headers and the lensfun library.
@@ -165,7 +176,8 @@ def correctLensDistortion(imagePath, undistImagePath,
     im = loadImage(imagePath)
     if mod is None:
         height, width = im.shape[0], im.shape[1]
-        mod, _, _ = getLensfunModifier(imagePath, width, height, lensfunDbObj, exiftoolObj)
+        mod, _, _ = getLensfunModifier(imagePath, width, height, lensfunDbObj, exiftoolObj,
+                                       minAcceptedScore=minAcceptedScore)
 
     undistCoords = mod.apply_geometry_distortion()    
     imUndistorted = lensfunpy.util.remap(im, undistCoords)
@@ -219,7 +231,8 @@ def lensfunXML(model, *params):
 </lensdatabase>
     """.format(dist=dist)
              
-def lensDistortionPixelDistances(imagePath=None, mod=None, lensfunDbObj=None, exiftoolObj=None, retH=False):
+def lensDistortionPixelDistances(imagePath=None, mod=None, lensfunDbObj=None, exiftoolObj=None, retH=False,
+                                 minAcceptedScore=MIN_ACCEPTED_SCORE):
     """
     Return the difference between the distances from the image center to the distorted and undistorted
     pixel locations.
@@ -229,7 +242,7 @@ def lensDistortionPixelDistances(imagePath=None, mod=None, lensfunDbObj=None, ex
     :rtype: ndarray of shape (h,w)
     """
     if not mod:
-        mod,_,_ = getLensfunModifier(imagePath, lensfunDbObj, exiftoolObj)
+        mod,_,_ = getLensfunModifier(imagePath, lensfunDbObj, exiftoolObj, minAcceptedScore=minAcceptedScore)
         
     undistCoordsXY = mod.apply_geometry_distortion()
 
