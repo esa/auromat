@@ -68,7 +68,7 @@ def findCameraAndLensFromExif(tags, lensfunDbObj=None, minAcceptedScore=100, rai
         if raiseIfNotFoundInDB:
             if not lenses:
                 raise LensNotFoundInDBError('Lens "' + tags['Composite:LensID'] + '" not found in DB!')
-            if lenses[0].Score < minAcceptedScore:
+            if lenses[0].score < minAcceptedScore:
                 raise LensNotFoundInDBError('Lens "' + tags['Composite:LensID'] + '" not found in DB! ' +
                                         'Closest was "' + lenses[0].model + '" with score ' + 
                                         str(lenses[0].score) + ' (<' + str(minAcceptedScore) + ')' )
