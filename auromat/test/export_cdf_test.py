@@ -8,13 +8,20 @@ import os
 import tempfile
 
 from auromat.mapping.spacecraft import getMapping
-import auromat.export.cdf
-from spacepy import pycdf
-from auromat.mapping.cdf import CDFMapping
 from auromat.test.export_netcdf_test import check_equal
 
 @attr('slow')
 class Test(unittest.TestCase):
+    
+    def setUp(self):
+        '''
+        Import modules that depend on pycdf only when tests are actually run.
+        This prevents import errors when this testsuite is skipped by attribute
+        and pycdf is not installed.
+        '''
+        import auromat.export.cdf
+        from spacepy import pycdf
+        from auromat.mapping.cdf import CDFMapping
 
     def testCDFExport(self):
         imagePath = getResourcePath('ISS030-E-102170_dc.jpg')

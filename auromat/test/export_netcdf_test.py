@@ -8,15 +8,22 @@ from numpy.ma.testutils import assert_array_almost_equal,\
     assert_array_equal, assert_equal
 import os
 import tempfile
-from netCDF4 import Dataset
 
 from auromat.mapping.spacecraft import getMapping
 from auromat.resample import resample
-import auromat.export.netcdf
-from auromat.mapping.netcdf import NetCDFMapping
 
 @attr('slow')
 class Test(unittest.TestCase):
+
+    def setUp(self):
+        '''
+        Import modules that depend on netCDF4 only when tests are actually run.
+        This prevents import errors when this testsuite is skipped by attribute
+        and netCDF4 is not installed.
+        '''
+        from netCDF4 import Dataset
+        import auromat.export.netcdf
+        from auromat.mapping.netcdf import NetCDFMapping
 
     def testRawNetCDFExport(self):
         imagePath = getResourcePath('ISS030-E-102170_dc.jpg')
