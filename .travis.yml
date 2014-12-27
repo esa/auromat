@@ -55,5 +55,5 @@ script:
   - pip install nose | cat
   - mkdir tmp_for_test
   - cd tmp_for_test
-  - nosetests --verbosity=3 --nocapture -a '!slow' -a '!libvpx' ../auromat/auromat/test
+  - nosetests --verbosity=3 --nocapture -A 'not slow and not libvpx' ../auromat/auromat/test
   - cd ..
