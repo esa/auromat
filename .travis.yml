@@ -38,7 +38,8 @@ install:
   - pip install git+http://git.code.sf.net/p/spacepy/code | cat
   
   # some other native software/libraries
-  - brew install exiftool ffmpeg | cat
+  - brew install exiftool | cat
+  - brew install ffmpeg --with-libvpx | cat
   
   - brew tap homebrew/science
   - brew install netcdf hdf5 | cat
