@@ -48,7 +48,7 @@ setup(
                       'geographiclib',
                       'astropy>=0.4.1',
                       'astroquery',
-                      'pyephem>=3.7.5.2',
+                      'ephem>=3.7.5.3',
                       'lensfunpy>=1.1.0',
                       'rawpy>=0.1',
                       ],
