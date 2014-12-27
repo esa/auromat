@@ -30,7 +30,7 @@ install:
   - tar -zxvf cdf35_0-dist-cdf.tar.gz
   - cd cdf35_0-dist
   - make OS=macosx ENV=gnu all
-  - sudo make INSTALLDIR=/usr/local/cdf install
+  - sudo make INSTALLDIR=/Applications/cdf install
   - cd ..
 
   # spacepy
