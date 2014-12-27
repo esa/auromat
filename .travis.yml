@@ -38,8 +38,8 @@ install:
   - pip install git+http://git.code.sf.net/p/spacepy/code | cat
   
   # some other native software/libraries
-  - brew install exiftool | cat
-  - brew install ffmpeg --with-libvpx | cat
+  # Note: brew's ffmpeg doesn't have libvpx built-in by default (no webm support)
+  - brew install exiftool ffmpeg | cat
   
   - brew tap homebrew/science
   - brew install netcdf hdf5 | cat
@@ -55,5 +55,5 @@ script:
   - pip install nose | cat
   - mkdir tmp_for_test
   - cd tmp_for_test
-  - nosetests --verbosity=3 --nocapture -a '!slow' ../auromat/auromat/test
+  - nosetests --verbosity=3 --nocapture -a '!slow' -a '!libvpx' ../auromat/auromat/test
   - cd ..
