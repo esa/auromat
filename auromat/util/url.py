@@ -15,18 +15,22 @@ import sys
 # as e.g. 'HTTP Error 500: msg'
 HTTPError.__repr__ = HTTPError.__str__
 
-def urlResponseCode(url):
+DEFAULT_TIMEOUT = 60
+
+def urlResponseCode(url, timeout=None):
     """
     Return the response code of the server without downloading the
     actual data.
     """
     try:
-        code = _urlResponseCode(url)
+        code = _urlResponseCode(url, timeout=timeout)
     except: # try again once in case of network problems
-        code = _urlResponseCode(url)
+        code = _urlResponseCode(url, timeout=timeout)
     return code
 
-def _urlResponseCode(url):
+def _urlResponseCode(url, timeout=None):
+    if timeout is None:
+        timeout = DEFAULT_TIMEOUT
     try:
         connection = urlopen(url)
         code = connection.getcode()
@@ -38,7 +42,7 @@ def _urlResponseCode(url):
 class DownloadError(Exception):
     pass
 
-def downloadFile(url, path, unifyErrors=True):
+def downloadFile(url, path, unifyErrors=True, timeout=None):
     """
     Download a single resource and store it as file to disk.
     On download errors (except 404), the download is retried once,
@@ -49,18 +53,20 @@ def downloadFile(url, path, unifyErrors=True):
         with open(tmpPath,'wb') as fp:
             shutil.copyfileobj(req, fp)
         os.rename(tmpPath, path)
-    downloadResource(url, saveToDisk, unifyErrors=unifyErrors)
+    downloadResource(url, saveToDisk, unifyErrors=unifyErrors,
+                     timeout=timeout)
     
-def downloadJSON(url, unifyErrors=True, data=None, **kw):
+def downloadJSON(url, unifyErrors=True, data=None, timeout=None, **kw):
     """
     Parse and return the JSON document at the given URL.
     Any additional keywords are given to json.load unchanged.    
     """
     def asjson(req):
         return json.load(req, **kw)
-    return downloadResource(url, asjson, data=data, unifyErrors=unifyErrors)
+    return downloadResource(url, asjson, data=data, unifyErrors=unifyErrors,
+                            timeout=timeout)
 
-def downloadResource(url, fn, data=None, unifyErrors=True):
+def downloadResource(url, fn, data=None, unifyErrors=True, timeout=None):
     """
     Download a single resource and call `fn` on it.
     On download errors (except 404), the download is retried once,
@@ -68,7 +74,7 @@ def downloadResource(url, fn, data=None, unifyErrors=True):
     """
     retry = False
     try:
-        return _downloadResource(url, fn, data=data)
+        return _downloadResource(url, fn, data=data, timeout=timeout)
     except HTTPError as e:
         if e.code == 404:
             if unifyErrors:
@@ -88,7 +94,7 @@ def downloadResource(url, fn, data=None, unifyErrors=True):
     if retry:
         print('download error, retrying once')
         try:
-            return _downloadResource(url, fn, data=data)
+            return _downloadResource(url, fn, data=data, timeout=timeout)
         except:
             if unifyErrors:
                 _, e, tb = sys.exc_info()
@@ -97,10 +103,12 @@ def downloadResource(url, fn, data=None, unifyErrors=True):
             else:
                 raise
     
-def _downloadResource(url, fn, data=None):
+def _downloadResource(url, fn, data=None, timeout=None):
+    if timeout is None:
+        timeout = DEFAULT_TIMEOUT
     print('downloading', url, end=' ', flush=True)
     try:        
-        req = urlopen(url, data=data) # throws also on 404
+        req = urlopen(url, data=data, timeout=timeout) # throws also on 404
         res = fn(req)
         print('-> done')
         return res
