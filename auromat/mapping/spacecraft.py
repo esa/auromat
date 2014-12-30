@@ -40,7 +40,7 @@ from auromat.coordinates.ephem import EphemerisCalculator
 class SpacecraftMappingProvider(BaseMappingProvider):
     def __init__(self, imageSequenceFolder, wcsFolder=None, imageFileExtension=None, timeshift=None, 
                  noradId=None, tleFolder=None, spacetrack=None, altitude=110, maxTimeOffset=3,
-                 sequenceInParallel=False):
+                 sequenceInParallel=False, fastCenterCalculation=False):
         """        
         :param imageSequenceFolder: folder path or a list of image file paths
         :param wcsFolder: folder path or a list of wcs file paths;
@@ -71,6 +71,7 @@ class SpacecraftMappingProvider(BaseMappingProvider):
         self.tleFolder = tleFolder
         self.spacetrack = spacetrack
         self.altitude = altitude
+        self.fastCenterCalculation = fastCenterCalculation
         
         metadataPath = os.path.join(os.path.dirname(self.imagePaths[0]), 'metadata.json')
         if os.path.exists(metadataPath):
@@ -182,7 +183,7 @@ class SpacecraftMappingProvider(BaseMappingProvider):
         
         mapping = getMapping(imagePath, wcsPath, self.timeshift, 
                              self.noradId, self.tleFolder, self.spacetrack, 
-                             altitude=self.altitude,
+                             altitude=self.altitude, fastCenterCalculation=self.fastCenterCalculation,
                              metadata=metadata)
         return mapping
     
@@ -212,7 +213,7 @@ class SpacecraftMappingProvider(BaseMappingProvider):
         return getMappingSequence(imagePaths, self.wcsPaths, metadatas=metadatas,
                                  timeshift=self.timeshift, noradId=self.noradId, 
                                  tleFolder=self.tleFolder, spacetrack=self.spacetrack, 
-                                 altitude=self.altitude,
+                                 altitude=self.altitude, fastCenterCalculation=self.fastCenterCalculation,
                                  parallel=self._sequenceInParallel)
 
 @inherit_docs  
