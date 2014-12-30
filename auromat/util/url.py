@@ -88,7 +88,8 @@ def downloadResource(url, fn, data=None, unifyErrors=True, timeout=None):
             raise DownloadError(e)
         else:
             raise
-    except:
+    except Exception as e:
+        print('unknown error:', e)
         retry = True
     
     if retry:
@@ -106,7 +107,10 @@ def downloadResource(url, fn, data=None, unifyErrors=True, timeout=None):
 def _downloadResource(url, fn, data=None, timeout=None):
     if timeout is None:
         timeout = DEFAULT_TIMEOUT
-    print('downloading', url, end=' ', flush=True)
+    if sys.version_info >= (3,3):
+        print('downloading', url, end=' ', flush=True)
+    else:
+        print('downloading', url, end=' ')
     try:        
         req = urlopen(url, data=data, timeout=timeout) # throws also on 404
         res = fn(req)
