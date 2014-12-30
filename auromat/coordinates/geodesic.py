@@ -14,6 +14,7 @@ from collections import namedtuple
 import numpy as np
 from geographiclib.geodesic import Geodesic
 from geographiclib.constants import Constants
+from auromat.util.decorators import printoptions
 
 
 wgs84A = Constants.WGS84_a/1000
@@ -110,7 +111,7 @@ def intermediate(location1, location2, f=0.5):
     
 def course(location1, location2):
     """
-    Return the course/azimuth in degrees when travelling from `location1` to `location2`.
+    Return the azimuth in degrees when travelling from `location1` to `location2`.
     """
     data = Geodesic.WGS84.Inverse(location1.lat, location1.lon, 
                                   location2.lat, location2.lon, 
@@ -151,14 +152,19 @@ def _courseDeltaSum(points):
     points = np.asarray(points)
     assert points.ndim == 2 and points.shape[1] == 2
     
+    points = np.concatenate((points, [points[0]]))
+    
     arcs = len(points)-1
     courses = np.empty(arcs*2)
+    
+    logging.debug('arcs: {}'.format(arcs))
     
     for i in range(arcs):
         lon1, lat1 = points[i,1], points[i,0]
         lon2, lat2 = points[i+1,1], points[i+1,0]
         courses[2*i] = course(Location(lat1,lon1), Location(lat2,lon2))
         courses[2*i+1] = course(Location(lat2,lon2), Location(lat1,lon1)) + 180
+    logging.debug('courses: {}'.format(courses))
 
     # calculate course deltas
     deltas = np.empty(arcs*2)
@@ -166,7 +172,11 @@ def _courseDeltaSum(points):
     for i in range(1, arcs*2):
         deltas[i] = _courseDelta(courses[i-1], courses[i])
     
+    with printoptions(suppress=True):
+        logging.debug('deltas:\n{}'.format(np.around(deltas,4)))
+    
     deltaSum = np.around(np.sum(deltas), decimals=1)
+    logging.debug('delta sum: {}'.format(deltaSum))
     assert deltaSum in [-360,-180,0,180,360]
     return deltaSum
 

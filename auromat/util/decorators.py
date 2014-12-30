@@ -1,6 +1,8 @@
 # Copyright European Space Agency, 2013
 
 from functools import wraps
+import numpy as np
+import contextlib
 
 def lazy_property(fn):
     """
@@ -52,3 +54,17 @@ def inherit_docs(cls):
                 pass
             break
     return cls
+
+@contextlib.contextmanager
+def printoptions(*args, **kwargs):
+    '''
+    Usage:
+    
+        with printoptions(precision=3, suppress=True):
+           print(x)
+    '''
+    original = np.get_printoptions()
+    np.set_printoptions(*args, **kwargs)
+    yield 
+    np.set_printoptions(**original)
+    
