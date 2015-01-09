@@ -33,6 +33,7 @@ As this is not yet released on PyPI, you have to install it manually using:
 
 .. code:: sh
 
+	sudo apt-get install libhdf5-serial-dev
     pip install --user numpy python-dateutil
     pip install --user git+http://git.code.sf.net/p/spacepy/code
 
