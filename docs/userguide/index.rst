@@ -22,11 +22,11 @@ then the supplied command-line tools should provide sufficient
 functionality without delving into how to use the software within Python.
 
 The following examples show how to download and convert data from the
-ESA ISS archive.
+`ESA ISS archive <http://cosmos.esa.int/arrrgh>`_.
 
 First, we download the georeferenced image data for a given image sequence ID
 with the :mod:`auromat-download <auromat.cli.download>` tool.
-Here we use `sequence 51 <https://arrrgh-tools.cosmos.esa.int/sequence/77>`_::
+Here we use `sequence 51 <http://arrrgh-tools.cosmos.esa.int/sequence/77>`_::
 
 	$ mkdir /data/iss
 	$ cd /data/iss
