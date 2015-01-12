@@ -6,7 +6,7 @@ from math import floor, ceil
 
 __all__ = []
 
-NUM_IGRF_YEARS_DEFINED = 24
+NUM_IGRF_YEARS_DEFINED = 25
 
 IGRF_DEFINED_UNTIL_YEAR = 1900 + (NUM_IGRF_YEARS_DEFINED-1)*5
 
@@ -20,18 +20,20 @@ When updating, the variables `NUM_IGRF_YEARS_DEFINED`, `g01`, `g11`, and `h11`
 have to be changed.
 """.format(IGRF_DEFINED_UNTIL_YEAR)
 
+# The last value is predicted using the secular variation and the last definite value.
+# e.g. g01[n] = 5*SV + g01[n-1] 
 g01 = [-31543, -31464, -31354, -31212, -31060, -30926, -30805, -30715,
        -30654, -30594, -30554, -30500, -30421, -30334, -30220, -30100,
        -29992, -29873, -29775, -29692, -29619.4, -29554.63, -29496.5,
-       -29439.5]
+       -29442, -29390.5]
 
 g11 = [-2298, -2298, -2297, -2306, -2317, -2318, -2316, -2306, -2292, -2285,
        -2250, -2215, -2169, -2119, -2068, -2013, -1956, -1905, -1848, -1784,
-       -1728.2, -1669.05, -1585.9, -1502.4]
+       -1728.2, -1669.05, -1585.9, -1501, -1410.5]
 
 h11 = [5922, 5909, 5898, 5875, 5845, 5817, 5808, 5812, 5821, 5810, 5815,
        5820, 5791, 5776, 5737, 5675, 5604, 5500, 5406, 5306, 5186.1, 5077.99, 
-       4945.1, 4801.1]
+       4944.26, 4797.1, 4664.1]
 
 assert len(g01) == len(g11) == len(h11) == NUM_IGRF_YEARS_DEFINED
 
@@ -52,6 +54,6 @@ def calcH11(fracYearIndex, fracYear):
     
 def _checkFracYearIndex(fracYearIndex):
     if fracYearIndex >= NUM_IGRF_YEARS_DEFINED-1:
-        raise ValueError("ERROR: Specified year is greater than IGRF implementation, "
+        raise ValueError("ERROR: Specified year is greater than IGRF implementation (" + str(IGRF_DEFINED_UNTIL_YEAR) + "), "
                          "please update coefficients in auromat.coordinates.igrf module")
     
