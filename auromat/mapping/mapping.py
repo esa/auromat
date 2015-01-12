@@ -953,11 +953,11 @@ def checkPlateCarree(lats, lons):
     deltaLon = lons[0,1:] - lons[0,:-1]
     isLonRegular = np.max(deltaLon) - np.min(deltaLon) < eps
     if not isLonRegular:
-        raise ValueError('longitudes are not evenly spaced')
+        raise ValueError('longitudes are not evenly spaced; max delta: {}'.format(np.max(deltaLon) - np.min(deltaLon)))
     deltaLat = lats[:-1,0] - lats[1:,0]
     isLatRegular = np.max(deltaLat) - np.min(deltaLat) < eps
     if not isLatRegular:
-        raise ValueError('latitudes are not evenly spaced')
+        raise ValueError('latitudes are not evenly spaced; max delta: {}'.format(np.max(deltaLat) - np.min(deltaLat)))
 
 def isPlateCarree(lats, lons):
     """

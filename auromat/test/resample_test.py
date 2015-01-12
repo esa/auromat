@@ -75,12 +75,14 @@ class Test(unittest.TestCase):
         altitude = 110
         rgb = ma.masked_array((np.random.rand(lats.shape[0]-1,lats.shape[1]-1,3) * 255).astype(np.uint8))
         elevation = np.zeros((rgb.shape[0], rgb.shape[1]))
-                
+        
+        date = datetime.datetime.now()
         mapping = GenericMapping(lats, lons, latsCenter, lonsCenter, elevation, altitude, rgb, 
-                                 cameraPosGCRS=np.array([0,0,0]), photoTime=datetime.datetime.now(), identifier=None)
+                                 cameraPosGCRS=np.array([0,0,0]), photoTime=date, identifier=None)
         m = resample(mapping, pxPerDeg=1, method='mean')
         m.checkPlateCarree()
         
+        print('using date {} for MLat/MLT transformation'.format(date))
         mapping = resampleMLatMLT(mapping, arcsecPerPx=100, method='nearest')
         assert not mapping.isPlateCarree
         mlat, mlt = mapping.mLatMlt
