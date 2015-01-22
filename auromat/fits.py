@@ -248,7 +248,7 @@ def getCatalogStars(header, limit=500, maxVmag=None, retVmag=False, retry=1):
     if limit:
         # we have to query more stars as our search region is a circle
         # and we are filtering stars out afterwards
-        row_limit = limit + int(limit*1.4)
+        row_limit = limit + int(limit*1.5)
     else:
         row_limit = -1
     print('Querying Vizier...')
