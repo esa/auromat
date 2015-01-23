@@ -32,7 +32,7 @@ install:
   - conda create --yes -n test python=$TRAVIS_PYTHON_VERSION
   - source activate test
   # we use conda to prevent compiling big packages
-  - conda install --yes numpy scipy astropy numexpr scikit-image pillow matplotlib basemap docutils pip
+  - conda install --yes numpy scipy astropy ephem numexpr scikit-image pillow matplotlib basemap docutils pip
   # OpenCV only supports Python 3 in the new 3.0 version (to be released)
   - if [[ $TRAVIS_PYTHON_VERSION == 2.7 ]]; then
       conda install --yes opencv ;
