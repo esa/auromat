@@ -84,11 +84,12 @@ class Test(unittest.TestCase):
         mapping = resampleMLatMLT(mapping, arcsecPerPx=100, method='nearest')
         assert not mapping.isPlateCarree
         mlat, mlt = mapping.mLatMlt
-        smlon = mltToSmLon(mlt.data)
+        mlat, mlt = mlat.data, mlt.data
+        smlon = mltToSmLon(mlt)
         checkPlateCarree(mlat, smlon)
             
     @attr('slow')          
-    def testReal(self):
+    def _testReal(self):
         m1 = _getMapping()
         m2 = resample(m1, pxPerDeg=15, method='mean')
         m2.checkPlateCarree()
@@ -99,7 +100,7 @@ class Test(unittest.TestCase):
         assert_array_approx_equal(_bbToArray(m3.boundingBox), _bbToArray(m1.boundingBox), 1)
     
     @attr('slow')    
-    def testPoleBug(self):
+    def _testPoleBug(self):
         m1 = _getMapping()
         m2 = resample(m1, arcsecPerPx=100, method='mean')
         assert_array_approx_equal(_bbToArray(m2.boundingBox), _bbToArray(m1.boundingBox), 1)
