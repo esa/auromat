@@ -69,7 +69,6 @@ def testCoordsPole():
 
 class Test(unittest.TestCase):
     def test(self):
-        np.set_printoptions(precision=1)
         lats, lons, latsCenter, lonsCenter = testCoordsDiscontinuity()
 
         altitude = 110
@@ -82,13 +81,12 @@ class Test(unittest.TestCase):
         m = resample(mapping, pxPerDeg=1, method='mean')
         m.checkPlateCarree()
         
-        print('using date {} for MLat/MLT transformation'.format(date))
         mapping = resampleMLatMLT(mapping, arcsecPerPx=100, method='nearest')
         assert not mapping.isPlateCarree
         mlat, mlt = mapping.mLatMlt
-        smlon = mltToSmLon(mlt)
+        smlon = mltToSmLon(mlt.data)
         checkPlateCarree(mlat, smlon)
-    
+            
     @attr('slow')          
     def testReal(self):
         m1 = _getMapping()
