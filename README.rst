@@ -4,6 +4,10 @@ AUROra MApping Toolkit
 .. image:: https://travis-ci.org/esa/auromat.svg?branch=master
     :target: https://travis-ci.org/esa/auromat
     :alt: Linux Build Status
+    
+.. image:: https://landscape.io/github/esa/auromat/master/landscape.svg
+   :target: https://landscape.io/github/esa/auromat/master
+   :alt: Code Health
 
 Installation under Linux
 ------------------------
