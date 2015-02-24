@@ -18,6 +18,7 @@ before_install:
   # latest ffmpeg (Ubuntu 12.04 supplies 0.8.16 which is too old)
   - wget http://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz
   - tar xf ffmpeg-release-64bit-static.tar.xz
+  - rm ffmpeg-release-64bit-static.tar.xz
   - export PATH=$PATH:$PWD/ffmpeg-*
   
   # CDF
