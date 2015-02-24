@@ -19,7 +19,7 @@ before_install:
   - wget http://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz
   - tar xf ffmpeg-release-64bit-static.tar.xz
   - rm ffmpeg-release-64bit-static.tar.xz
-  - export PATH=$PATH:$PWD/ffmpeg-*
+  - export PATH=$PATH:$PWD/`ls | grep ffmpeg-`
   
   # CDF
   - wget http://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf35_0_2/linux/cdf35_0-dist-cdf.tar.gz
