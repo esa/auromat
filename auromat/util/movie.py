@@ -12,14 +12,13 @@ import tempfile
 import shutil
 import subprocess
 
-def createMovie(moviePath, imagePaths, frameRate=25, crf=18, maxBitrate=2000, width=None, height=None,
+def createMovie(moviePath, imagePaths, frameRate=25, maxBitrate=2000, width=None, height=None,
                 tempFolder=None):
     """
     
     :param moviePath: path with .mp4 or .webm ending, will be overridden if existing
     :param imagePaths: paths of images in correct order
     :param frameRate: the frame rate of the movie
-    :param crf: -crf parameter of ffmpeg, lower is better
     :param maxBitrate: maximum bitrate in kbit/s
     :param width, height: width and height of movie in pixels; if not given, then image dimensions are used
     :param tempFolder: the folder to store temporary data in (symlinks), will be removed afterwards
@@ -58,10 +57,12 @@ def createMovie(moviePath, imagePaths, frameRate=25, crf=18, maxBitrate=2000, wi
         if movieExt == '.mp4':
             args += ['-codec:v', 'libx264', '-preset', 'slow', '-profile:v', 'baseline',
                      '-pix_fmt', 'yuv420p', '-movflags', 'faststart'] # faststart needs ffmpeg >= 1.0
+            crf = 18
             
         elif movieExt == '.webm':
             args += ['-codec:v', 'libvpx', '-quality', 'good', '-cpu-used', '0',
                      '-b:v', str(maxBitrate) + 'k', '-qmin', '10', '-qmax', '42']
+            crf = 10
         else:
             raise NotImplementedError('Unsupported video format: ' + ext)
         
