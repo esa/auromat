@@ -55,7 +55,7 @@ def createMovie(moviePath, imagePaths, frameRate=25, maxBitrate=2000, width=None
             args += ['-vf', 'scale=' + s]
         
         if movieExt == '.mp4':
-            args += ['-codec:v', 'libx264', '-preset', 'slow', '-profile:v', 'baseline',
+            args += ['-codec:v', 'libx264', '-preset', 'slow', '-profile:v', 'main', '-level', '3.1',
                      '-pix_fmt', 'yuv420p', '-movflags', 'faststart'] # faststart needs ffmpeg >= 1.0
             crf = 18
             
