@@ -215,13 +215,17 @@ def recomputeXylsPixelPositions(originalXylsPath, originalWcsPath, newWcsPathOrH
     
     return xNew,yNew
 
-def getCatalogStars(header, limit=500, maxVmag=None, retVmag=False, retry=1):
+def getCatalogStars(header, limit=500, limitFactor=2.5, maxVmag=None, retVmag=False, retry=1):
     """
     Queries the Vizier catalog and retrieves stars for the sky area
     as defined by the given WCS header.
     
     :param header: FITS WCS header, must include IMAGEW and IMAGEH
     :param limit: maximum number of stars to return (optional)
+    :param limitFactor: how much more stars to query for;
+                        The search region is a circle. To reach the desired
+                        limit of returned stars after filtering stars outside
+                        the image bounds more stars have to be queried for initially.
     :param maxVmag: maximum magnitude of stars (optional)
     :param retVmag: if true, include Vmag in the result tuple
     :param retry: how many times to retry in case of errors (e.g. network problems)
@@ -248,7 +252,7 @@ def getCatalogStars(header, limit=500, maxVmag=None, retVmag=False, retry=1):
     if limit:
         # we have to query more stars as our search region is a circle
         # and we are filtering stars out afterwards
-        row_limit = limit + int(limit*1.5)
+        row_limit = int(limitFactor*limit)
     else:
         row_limit = -1
     print('Querying Vizier...')
