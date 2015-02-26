@@ -293,6 +293,13 @@ def getCatalogStars(header, limit=500, maxVmag=None, retVmag=False, retry=1):
     vmag = vmag[inside]
     print(len(vmag), 'stars left after filtering')
     
+    if limit and len(vmag) < limit:
+        print('NOTE: limit of {} not reached, debug info follows'.format(limit), file=sys.stderr)
+        print('Vizier query_region: ra={}, dec={}, radius={}, column_filters={}, row_limit={}, catalog={}'.
+              format(centerRa, centerDec, radius, column_filters, row_limit, catalog),
+              file=sys.stderr)
+        print('filter: border={}, width={}, height={}'.format(border,w,h))
+    
     # Step 4: apply limit by removing the faintest stars
     if limit:
         x = x[:limit]
