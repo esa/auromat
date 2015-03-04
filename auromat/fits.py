@@ -273,7 +273,7 @@ def getCatalogStars(header, limit=500, limitFactor=2.5, maxVmag=None, retVmag=Fa
             # so we try again without using the cache
             # see https://github.com/astropy/astroquery/issues/465
             with suspend_cache(Vizier):
-                return getCatalogStars(header, limit, maxVmag, retVmag, retry-1)
+                return getCatalogStars(header, limit, limitFactor, maxVmag, retVmag, retry-1)
         print('Vizier query_region: ra={}, dec={}, radius={}, column_filters={}, row_limit={}, catalog={}'.
               format(centerRa, centerDec, radius, column_filters, row_limit, catalog),
               file=sys.stderr)
