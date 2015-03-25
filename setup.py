@@ -50,7 +50,7 @@ setup(
                       'astroquery',
                       'ephem>=3.7.5.3',
                       'lensfunpy>=1.1.0',
-                      'rawpy>=0.3.2',
+                      'rawpy>=0.3.5',
                       ],
     extras_require = {
         'netcdf': ['netCDF4'], # for netCDF export
