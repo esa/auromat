@@ -19,7 +19,7 @@ setup(
     long_description = open('README.rst').read(),
     version = verstr,
     author = 'Maik Riechert',
-    author_email = 'mriecher@cosmos.esa.int, awalsh@sciops.esa.int',
+    author_email = 'maik.riechert@arcor.de, awalsh@sciops.esa.int',
     license = 'ESCL - Type 1',
     url = 'https://github.com/esa/auromat',
     classifiers=[
