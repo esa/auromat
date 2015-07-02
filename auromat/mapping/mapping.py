@@ -248,7 +248,8 @@ class BoundingBox(object):
         return BoundingBox(latSouth, lonWest, latNorth, lonEast)
     
     @staticmethod
-    def _minimumBoundingBoxLons(lons):       
+    def _minimumBoundingBoxLons(lons):
+        # This is an implementation of http://gis.stackexchange.com/a/17987
         lons = np.asarray(lons)
         xs = np.sort(lons.ravel())
         assert len(xs) % 2 == 0
