@@ -35,8 +35,8 @@ class Test(unittest.TestCase):
     def testBBPoint(self):
         bb = BoundingBox(latSouth=50, lonWest=80, 
                          latNorth=50, lonEast=80)
-        assert_array_equal(bb.center, [50,80])
-        assert_array_equal(bb.size, 0)
+        assert_array_almost_equal(bb.center, [50,80])
+        assert_array_almost_equal(bb.size, 0)
         
     def testBBMerge(self):
         bb1 = BoundingBox(latSouth=-55, lonWest=95, latNorth=-45, lonEast=109)
