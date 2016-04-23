@@ -28,7 +28,7 @@ except ImportError as e:
     print(repr(e))
     warnings.warn('rawpy or lensfunpy is missing, no RAW support available')
 
-defaultBaseUrl = 'http://arrrgh-tools.cosmos.esa.int/api/georef_seqs/'
+defaultBaseUrl = 'https://arrrgh-tools.cosmos.esa.int/api/georef_seqs/'
 
 isoDateFormat = '%Y-%m-%dT%H:%M:%S.%f'
 
