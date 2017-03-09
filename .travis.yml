@@ -4,6 +4,9 @@ language: python
 
 dist: trusty
 
+notifications:
+    email: false
+
 python:
   - 2.7
 #  - 3.4
@@ -15,6 +18,7 @@ addons:
       - gfortran
       - liblensfun-dev
       - libraw-dev
+      - libimage-exiftool-perl
 
 
 before_install:
