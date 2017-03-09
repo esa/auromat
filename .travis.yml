@@ -13,7 +13,6 @@ addons:
   apt:
     packages: 
       - gfortran
-      - ffmpeg
 
 
 before_install:
