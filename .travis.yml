@@ -1,8 +1,19 @@
-language: python
+sudo: required
+
+language: generic
+
+dist: trusty
 
 python:
   - 2.7
   - 3.4
+  - 3.5
+
+addons:
+  apt:
+    packages: 
+      - gfortran
+
 
 before_install:
   # Python
@@ -12,19 +23,10 @@ before_install:
   - export PATH=/home/travis/miniconda2/bin:$PATH
   - conda update --yes conda
   
-  # system libs
-  - sudo apt-get install libraw-dev liblensfun-dev libnetcdf-dev libhdf5-serial-dev libimage-exiftool-perl gfortran
-  
-  # latest ffmpeg (Ubuntu 12.04 supplies 0.8.16 which is too old)
-  - wget http://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz
-  - tar xf ffmpeg-release-64bit-static.tar.xz
-  - rm ffmpeg-release-64bit-static.tar.xz
-  - export PATH=$PATH:$PWD/`ls | grep ffmpeg-`
-  
   # CDF
-  - wget http://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/cdf35_0_2/linux/cdf35_0-dist-cdf.tar.gz
-  - tar -zxvf cdf35_0-dist-cdf.tar.gz
-  - cd cdf35_0-dist
+  - wget -r -l1 -np -nd -nc http://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/latest-release/linux/ -A cdf*-dist-all.tar.gz
+  - tar xf cdf*-dist-all.tar.gz
+  - cd cdf*dist
   - make OS=linux ENV=gnu all
   - sudo make INSTALLDIR=/usr/local/cdf install
   - cd ..
@@ -34,7 +36,7 @@ install:
   - source activate test
   # we use conda to prevent compiling big packages
   - conda install --yes numpy scipy astropy ephem numexpr scikit-image pillow matplotlib basemap docutils pip
-  # OpenCV only supports Python 3 in the new 3.0 version (to be released)
+  # OpenCV only supports Python 3 in OpenCV 3.x
   - if [[ $TRAVIS_PYTHON_VERSION == 2.7 ]]; then
       conda install --yes opencv ;
     fi
@@ -44,12 +46,10 @@ install:
   
   # manually install extra dependencies, this is a
   # work-around until https://github.com/pypa/pip/issues/1236 is fixed
-  # and for the case of spacepy until it is on pypi
   - pip install netCDF4
   
   # spacepy
-  - git clone --depth 1 http://git.code.sf.net/p/spacepy/code spacepy
-  - cd spacepy && python setup.py install && cd ..
+  - pip install spacepy
   
 script:
   - mkdir tmp_for_test
