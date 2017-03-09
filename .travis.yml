@@ -6,14 +6,15 @@ dist: trusty
 
 python:
   - 2.7
-  - 3.4
-  - 3.5
+#  - 3.4
+#  - 3.5
 
 addons:
   apt:
     packages: 
       - gfortran
       - liblensfun-dev
+      - libraw-dev
 
 
 before_install:
