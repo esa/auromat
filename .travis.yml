@@ -11,10 +11,12 @@ python:
 
 addons:
   apt:
+  sources: ['mc3man-trusty-media']
     packages: 
       - gfortran
       - liblensfun-dev
       - libraw-dev
+      - ffmpeg
 
 
 before_install:
