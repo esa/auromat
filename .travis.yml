@@ -11,12 +11,10 @@ python:
 
 addons:
   apt:
-    sources: ['mc3man-trusty-media']
     packages: 
       - gfortran
       - liblensfun-dev
       - libraw-dev
-      - ffmpeg
 
 
 before_install:
@@ -33,6 +31,12 @@ before_install:
   - make OS=linux ENV=gnu all
   - sudo make INSTALLDIR=/usr/local/cdf install
   - cd ..
+
+  # latest ffmpeg (Ubuntu 12.04 supplies 0.8.16 which is too old)
+  - wget http://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz
+  - tar xf ffmpeg-release-64bit-static.tar.xz
+  - rm ffmpeg-release-64bit-static.tar.xz
+  - export PATH=$PATH:$PWD/`ls | grep ffmpeg-`
 
 install:
   - conda create --yes -n test python=$TRAVIS_PYTHON_VERSION
