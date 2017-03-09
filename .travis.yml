@@ -13,6 +13,7 @@ addons:
   apt:
     packages: 
       - gfortran
+      - liblensfun-dev
 
 
 before_install:
