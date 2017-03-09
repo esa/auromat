@@ -5,7 +5,7 @@ language: python
 dist: trusty
 
 notifications:
-    email: false
+    email: true
 
 python:
   - 2.7
@@ -23,13 +23,13 @@ addons:
 
 before_install:
   # Python
-  - wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
+  - wget https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
   - bash miniconda.sh -b -p $HOME/miniconda
   - export PATH=$HOME/miniconda/bin:$PATH
   - hash -r
   
   # CDF
-  - wget -r -l1 -np -nd -nc http://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/latest-release/linux/ -A cdf*-dist-all.tar.gz
+  - wget -r -l1 -np -nd https://cdaweb.gsfc.nasa.gov/pub/software/cdf/dist/latest-release/linux/ -A cdf*-dist-all.tar.gz
   - tar xf cdf*-dist-all.tar.gz
   - cd cdf*dist
   - make OS=linux ENV=gnu all
