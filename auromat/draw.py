@@ -46,10 +46,9 @@ from auromat.draw_helpers import overlapPolygons,\
     _generatePolygonsFromMappingOrCollection, _addFigureBottomTitle,\
     _convertMappingsToSM, _formatMLT, ensureContinuousPath,\
     loadFigImage, _saveFig, _getMplColors, _setMplColors, _circles, ColorMode
-from auromat.resample import plateCarreeResolution, _resample
+from auromat.resample import plateCarreeResolution, _resample, resample
 from auromat.utils import outline
 import auromat.resources
-import auromat.resample
 import auromat.fits
 from auromat.coordinates.geodesic import Location
 from auromat.coordinates import geodesic, constellations
@@ -630,7 +629,7 @@ def drawScanLinesCo(outputFile, widthPx=None, dpi=None, transparent=False, bgcol
     except (KeyError,TypeError):
         currentMappingProps = currentMapping.properties
         pxPerDeg = plateCarreeResolution(currentMappingProps.boundingBox, arcsecPerPx)
-        currentMapping = auromat.resample.resample(currentMapping, pxPerDeg=pxPerDeg)
+        currentMapping = resample(currentMapping, pxPerDeg=pxPerDeg)
     
     bb = currentMappingProps.boundingBox
     # constant height of rotated scanline box
@@ -684,7 +683,7 @@ def drawScanLinesCo(outputFile, widthPx=None, dpi=None, transparent=False, bgcol
                 # For drawing, we need to resample though to reduce polygon counts.
                 
                 # Note that we use the same pxPerDeg for all mappings to stay on the same grid
-                nextMapping = auromat.resample.resample(nextMapping, pxPerDeg=pxPerDeg)
+                nextMapping = resample(nextMapping, pxPerDeg=pxPerDeg)
                 
             azCamFoot = geodesic.course(currentMappingProps.cameraFootpoint, nextMappingProps.cameraFootpoint)
         
@@ -1459,7 +1458,7 @@ def getFixedConstellationColors(colors=None):
         
     def find_neighbors(x, tri):
         """see https://stackoverflow.com/a/17811731/60982"""
-        return list(set(indx for simplex in tri.vertices if x in simplex for indx in simplex if indx !=x))
+        return list(set(indx for simplex in tri.vertices if x in simplex for indx in simplex if indx != x))
     
     keys = list(constellations.data.keys())
     # we use the "middle" point of each constellation as input for neighbor analysis
@@ -1473,8 +1472,8 @@ def getFixedConstellationColors(colors=None):
         colorsDone = map(lambda i: constellationColors[i], indicesDone)
         remainingColors = colors - set(colorsDone)
         remainingIndices = set(indices) - set(indicesDone)
-        for i, color in zip(remainingIndices, remainingColors):
-            constellationColors[i] = color
+        for j, color in zip(remainingIndices, remainingColors):
+            constellationColors[j] = color
     
     constellationColors = {keys[i]: c for i,c in constellationColors.items()}
     return constellationColors 
