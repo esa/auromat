@@ -1,6 +1,6 @@
 futures==2.1.5
 papy==1.0.5
-numpy==1.6.1
+numpy==1.22.0
 scipy==0.13.1
 psutil==1.2.1
 ExifRead==1.4.0
